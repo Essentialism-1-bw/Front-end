@@ -61,17 +61,17 @@ const SignInForm = ({ values, errors, touched, status }) => {
                 <p style={{ fontSize: '.8rem' }}>New User? <a href="#" className={classes.signup}>Create an account</a></p>
             </div>
             <Form>
-                <div className={classes.input}>
-                    <Field type="email" name="email" placeholder="Email Address" component={TextField} fullWidth/>
-                </div>
-                <div className={classes.input}>
-                    <Field type="password" name="password" placeholder="Password" component={TextField} />
-                </div>
-                <div className={classes.buttonDiv}>
-                    <ThemeProvider theme={theme}>
-                        <Button className={classes.signin} type="submit" variant="contained" color="primary">Sign In</Button>
-                    </ThemeProvider>
-                </div>
+                <ThemeProvider theme={theme}>
+                    <div className={classes.input}>
+                        <Field type="email" color="primary" name="email" placeholder="Email Address" component={TextField} fullWidth/>
+                    </div>
+                    <div className={classes.input}>
+                        <Field type="password" color="primary" name="password" placeholder="Password" component={TextField} />
+                    </div>
+                    <div className={classes.buttonDiv}>
+                            <Button className={classes.signin} type="submit" variant="contained" color="primary">Sign In</Button>
+                    </div>
+                </ThemeProvider>
             </Form>
         </Card>
     )
