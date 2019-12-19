@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles({
     card: {
+      borderRadius: '15px',
       marginTop: "10%",
       width: "25%",
       height: "50vh",
@@ -33,7 +34,12 @@ const useStyles = makeStyles({
         color: '#7932FF'
     },
     signin: {
-        marginTop: 30
+        marginTop: 30,
+        borderRadius: '15px'
+    },
+    buttonDiv: {
+        display: 'flex',
+        justifyContent: 'flex-end'
     }
   });
 
@@ -52,7 +58,7 @@ const SignInForm = ({ values, errors, touched, status }) => {
         <Card className={classes.card}>
             <div style={{ width: '55%' }}>
                 <Typography className={classes.title}>Sign In</Typography>
-                <p style={{ fontSize: '.8rem' }}>New User? <a href="#" className={classes.signup}>Sign Up Now!</a></p>
+                <p style={{ fontSize: '.8rem' }}>New User? <a href="#" className={classes.signup}>Create an account</a></p>
             </div>
             <Form>
                 <div className={classes.input}>
@@ -61,9 +67,11 @@ const SignInForm = ({ values, errors, touched, status }) => {
                 <div className={classes.input}>
                     <Field type="password" name="password" placeholder="Password" component={TextField} />
                 </div>
-                <ThemeProvider theme={theme}>
-                    <Button className={classes.signin} type="submit" variant="contained" color="primary">Sign In</Button>
-                </ThemeProvider>
+                <div className={classes.buttonDiv}>
+                    <ThemeProvider theme={theme}>
+                        <Button className={classes.signin} type="submit" variant="contained" color="primary">Sign In</Button>
+                    </ThemeProvider>
+                </div>
             </Form>
         </Card>
     )
