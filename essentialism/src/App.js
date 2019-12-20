@@ -3,7 +3,7 @@ import './App.css';
 
 import NavBar from './components/NavBar'
 
-import SignIn from './components/SignIn'
+import SignIn from './components/user-onboarding/SignIn'
 import Dashboard from './components/Dashboard'
 import WelcomePage from './components/WelcomePage'
 import { Route } from 'react-router-dom'
