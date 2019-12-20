@@ -52,7 +52,7 @@ const theme = createMuiTheme({
     }
 })
 
-const SignInForm = ({ values, errors, touched, status }) => {
+const SignInForm = () => {
     const classes = useStyles();
     return (
         <Card className={classes.card}>
@@ -63,13 +63,13 @@ const SignInForm = ({ values, errors, touched, status }) => {
             <Form>
                 <ThemeProvider theme={theme}>
                     <div className={classes.input}>
-                        <Field type="email" color="primary" name="email" placeholder="Email Address" component={TextField} fullWidth/>
+                        <Field type="email" color="primary" name="email" label="Email Address" component={TextField} InputLabelProps={{ shrink: true }} fullWidth/>
                     </div>
                     <div className={classes.input}>
-                        <Field type="password" color="primary" name="password" placeholder="Password" component={TextField} />
+                        <Field type="password" color="primary" name="password" label="Password" InputLabelProps={{ shrink: true }} component={TextField} />
                     </div>
                     <div className={classes.buttonDiv}>
-                            <Button className={classes.signin} type="submit" variant="contained" color="primary">Sign In</Button>
+                        <Button className={classes.signin} type="submit" variant="contained" color="primary">Sign In</Button>
                     </div>
                 </ThemeProvider>
             </Form>
@@ -92,7 +92,6 @@ const FormikSignInForm = withFormik({
             .min(8, "Password must be at least 8 characters long")
             .required()
     }),
-
     handleSubmit(values, { resetForm, setStatus, setSubmitting }) {
         axios
             .post("https://reqres.in/api/users", values)
