@@ -7,6 +7,7 @@ import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/sty
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles({
     card: {
@@ -58,7 +59,7 @@ const SignInForm = () => {
         <Card className={classes.card}>
             <div style={{ width: '55%' }}>
                 <Typography className={classes.title}>Sign In</Typography>
-                <p style={{ fontSize: '.8rem' }}>New User? <a href="#" className={classes.signup}>Create an account</a></p>
+                <p style={{ fontSize: '.8rem' }}>New User? <Link to="/signup" className={classes.signup}>Create an account</Link></p>
             </div>
             <Form>
                 <ThemeProvider theme={theme}>
