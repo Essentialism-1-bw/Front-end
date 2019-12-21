@@ -8,12 +8,13 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import { makeStyles, createMuiTheme, ThemeProvider, withTheme } from '@material-ui/core/styles'; 
-import { Link } from 'react-router-dom'
+import ValuesList from './ValuesList'
 
 const theme = createMuiTheme({
   palette: {
       primary: {
-          main: "#7932FF"
+          main: "#7932FF",
+          color: 'white'
       },
       secondary: {
         main: "#E33D3D"
@@ -25,7 +26,7 @@ const useStyles = makeStyles(theme => ({
 
   card: {
     borderRadius: '15px',
-    width: "60%",
+    width: "45%",
     padding: 40,
     display: "flex",
     justifyContent: "center",
@@ -34,48 +35,92 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'left', 
     background: '#F8F8F8',
   },
+  root: {
+    // border: '2px solid red',
+    width: '100%',
+    display: 'flex', 
+    flexDirection: 'row',
+    padding: 20, 
+  },
   valueCard: {
-    background: "white",
     width: '70%',
   },
   valueiteam: {
-    padding: 10,
-    margin: 10,
+    marginLeft: 40,
     display: "flex",
     justifyContent: "center",
     flexDirection: "row",
     flexFlow: 'wrap',
-  },
-  mainButton: {
-    marginTop: 30,
-    borderRadius: '15px',
-    width: '100%',
-  },
-  singleMenu: {
-    width: 470,
   },
   duelMenu: {
     marginRight: theme.spacing(1),
     marginTop: theme.spacing(2),
     width: 500,
   },
+  menuDiv: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    // border: '2px solid red',
+    width: '60%',
+    paddingLeft: 80,
+  }, 
   buttonDiv: {
     display: 'flex',
-    justifyContent: 'flex-end',
-    flexDirection: 'column',
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    padding: 10,
+  },
+  mainButton: {
+    // marginTop: 30,
+    borderRadius: '15px',
+    width: '50%',
+    height: '40%',
+    margin: 10,
   },
   link: {
     textDecoration: 'none',
     fontWeight: 700,
-    color: 'white',
-    display: 'flex',
-    alignItems: 'center',
+    fontSize: '1rem',
+    color: 'gray',
   },
   linkCard: {
-    color: '#ffffff',
-    backgroundColor: '#7932FF',
-    margin: 5,
-  }
+    color: '#262626 ',
+    background: '#FBFBFB ',
+    padding: 10,
+    paddingRight: 50,
+    display: 'flex', 
+    flexDirection: 'row', 
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    margin: 20, 
+  },
+  addremove: {
+    display: 'flex', 
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+  },
+  add: {
+    padding: 20,
+    paddingTop: 5,
+    paddingBottom: 10,
+    background: '#F1F1F1 ',
+    margin: 15,
+    color: 'black', 
+    fontSize: '1rem', 
+    textAlign: 'center',
+  },
+  remove: {
+    padding: 20,
+    paddingTop: 5,
+    paddingBottom: 10,
+    background: '#F1F1F1 ',
+    margin: 15,
+    color: 'black', 
+    fontSize: '0.8rem', 
+    textAlign: 'center',
+  },
 
 }));
 
@@ -93,34 +138,15 @@ function FormFiled({ touched, status }) {
 
   return (
     <Card className={classes.card}>
-        <h3>Your top 5 Values</h3>
+        <h3>Add your top 5 Values</h3>
         <br/>
         <br/>
         <br/>
 
-        <Card
-          className={classes.valueCard}
-        >    
-          <div className={classes.valueiteam}>
-            {value.map(valueList => (
-            <div key={valueList.id}>
-              <Link className={classes.link} to="/valueIteam:{id}">
-                <Card className={classes.linkCard}>
-                  <h2 className={classes.valueiteam}>{valueList.valueIteam}</h2>
-                  <br/> 
-                </Card>
-              </Link>  
-            </div>
-            ))}
-          </div>
-        </Card>
-        <br/>
-        <br/>
-        <br/>
-
-        <Form>
+        <Form className={classes.root}>
         <ThemeProvider theme={theme}>
-        <InputLabel shrink id="valueIteam">
+        <div className={classes.menuDiv}>
+          <InputLabel shrink id="valueIteam">
           Value Iteam
         </InputLabel>
         <Field 
@@ -153,7 +179,8 @@ function FormFiled({ touched, status }) {
         <br/>
         <br/>
         <br/>
-
+        </div>
+        
         <div className={classes.buttonDiv}>
           <Button 
             className={classes.mainButton}
@@ -172,7 +199,7 @@ function FormFiled({ touched, status }) {
             variant="contained"
             color="secondary"
           >
-            Reset Values
+            Remove All
           </Button>
         </div>
         </ThemeProvider>
@@ -180,6 +207,9 @@ function FormFiled({ touched, status }) {
         <br/>
         <br/>
       </Form>
+
+      <ValuesList value = {value}/>
+
     </Card>
   ); 
 }

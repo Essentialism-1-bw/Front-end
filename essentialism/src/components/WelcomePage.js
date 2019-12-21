@@ -80,7 +80,7 @@ const WelcomePage = (props) => {
         <div className="BannerBG3">
             <div className={classes.banner}>
                 <div className={classes.centerCont}>
-                    <h1 className={classes.mainTitle}>Hello `John Doe`</h1>
+                    <h1 className={classes.mainTitle}>Hello John Doe</h1>
                     <p className={classes.body}>Regain control of your own choices about where to spend your time and energy instead of giving others implicit permission to choose for you.</p>
                     {/* <GetStarted /> */}
                 </div>
