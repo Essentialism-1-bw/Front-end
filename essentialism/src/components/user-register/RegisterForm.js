@@ -28,9 +28,7 @@ const useStyles = makeStyles(theme => ({
 
   card: {
     borderRadius: '15px',
-    marginTop: "10%",
-    marginleft: 100,
-    width: "30%",
+    width: "100%",
     padding: 40,
     display: "flex",
     justifyContent: "center",
@@ -49,58 +47,37 @@ const useStyles = makeStyles(theme => ({
 
   singleField: {
     width: 470,
-    '& label.Mui-focused': {
-      color: 'gray',
-    },
-    '& .MuiInput-underline:after': {
-      borderBottomColor: '#7932FF',
-    },
+    // '& label.Mui-focused': {
+    //   color: 'gray',
+    // },
+    // '& .MuiInput-underline:after': {
+    //   borderBottomColor: '#7932FF',
+    // },
   },
 
   singleMenu: {
     width: 470,
-    '& label.Mui-focused': {
-      color: 'gray',
-    },
-    '& .MuiInput-underline:after': {
-      borderBottomColor: '#7932FF',
-    },
   },
 
   duelField: {
-    marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
     width: 230,
-    '& label.Mui-focused': {
-      color: 'gray',
-    },
-    '& .MuiInput-underline:after': {
-      borderBottomColor: '#7932FF',
-    },
   },
 
   duelMenu: {
     marginRight: theme.spacing(1),
     width: 250,
     marginTop: theme.spacing(2),
-    '& label.Mui-focused': {
-      color: 'gray',
-    },
-    '& .MuiInput-underline:after': {
-      borderBottomColor: '#7932FF',
-    },
   },
 
   triField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
     width: 100,
-    '& label.Mui-focused': {
-      color: 'gray',
-    },
-    '& .MuiInput-underline:after': {
-      borderBottomColor: '#7932FF',
-    },
+  },
+  buttonDiv: {
+    display: 'flex',
+    justifyContent: 'flex-end'
   },
 
 }));
@@ -128,11 +105,13 @@ function FormTest({values, errors, touched, status}) {
         <br/>
         <br/>
 
+        <ThemeProvider theme={theme}>
         <Field 
           type="email" 
           name="email" 
           component={TextField}
           label="Email adress"
+          color="primary"
           className={classes.singleField}
           InputLabelProps={{
             shrink: true,
@@ -148,6 +127,7 @@ function FormTest({values, errors, touched, status}) {
           name="firstName" 
           component={TextField}  
           label="First name"
+          color="primary"
           className={classes.duelField}
           InputLabelProps={{
             shrink: true,
@@ -160,6 +140,7 @@ function FormTest({values, errors, touched, status}) {
           name="lastName" 
           component={TextField} 
           label="Last name"
+          color="primary"
           className={classes.duelField}
           InputLabelProps={{
             shrink: true,
@@ -199,6 +180,7 @@ function FormTest({values, errors, touched, status}) {
           type="month" 
           name="month" 
           placeholder="Month" 
+          color="primary"
           component={Select}
           className={classes.duelMenu}
         >
@@ -224,6 +206,7 @@ function FormTest({values, errors, touched, status}) {
           component={TextField}
           className={classes.triField}
           label="Day"
+          color="primary"
           className={classes.triField}
           InputLabelProps={{
             shrink: true,
@@ -236,6 +219,7 @@ function FormTest({values, errors, touched, status}) {
           name="year" 
           component={TextField}
           label="Year"
+          color="primary"
           className={classes.triField}
           InputLabelProps={{
             shrink: true,
@@ -252,7 +236,8 @@ function FormTest({values, errors, touched, status}) {
         <Field 
           type="country" 
           name="country" 
-          placeholder="country" 
+          placeholder="country"
+          color="primary" 
           component={Select}
           className={classes.singleMenu}
         >
@@ -280,8 +265,9 @@ function FormTest({values, errors, touched, status}) {
           {touched.terms}
         <br/>
         <br/>
-        <ThemeProvider theme={theme}>
-          <Button 
+
+          <div className={classes.buttonDiv}>
+            <Button 
           className={classes.signin}
           type="submit" 
           name="submit" 
@@ -290,6 +276,7 @@ function FormTest({values, errors, touched, status}) {
         >
           Create account
         </Button>
+          </div>
         </ThemeProvider>
         
         <br/>
