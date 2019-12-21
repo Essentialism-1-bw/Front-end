@@ -12,10 +12,12 @@ import { Link } from 'react-router-dom'
 const useStyles = makeStyles({
     card: {
       borderRadius: '15px',
-      marginTop: "10%",
-      width: "25%",
-      height: "50vh",
-      padding: 10,
+    //   marginTop: "10%",
+      width: "100%",
+    //   height: "50vh",
+      padding: 40,
+      paddingTop: 80,
+      paddingBottom: 80,
       display: "flex",
       justifyContent: "space-evenly",
       alignItems: "center",
@@ -24,6 +26,7 @@ const useStyles = makeStyles({
     },
     input: {
         marginBottom: 20,
+        paddingTop: 10,
         width: "100%"
     },
     title: {
@@ -35,13 +38,16 @@ const useStyles = makeStyles({
         color: '#7932FF'
     },
     signin: {
-        marginTop: 30,
+        marginTop: 10,
         borderRadius: '15px'
     },
     buttonDiv: {
         display: 'flex',
         justifyContent: 'flex-end'
-    }
+    },
+    singleField: {
+        width: 470,
+      },
   });
 
 
@@ -57,17 +63,19 @@ const SignInForm = () => {
     const classes = useStyles();
     return (
         <Card className={classes.card}>
-            <div style={{ width: '55%' }}>
+            <div style={{ width: '86%' }}>
                 <Typography className={classes.title}>Sign In</Typography>
                 <p style={{ fontSize: '.8rem' }}>New User? <Link to="/signup" className={classes.signup}>Create an account</Link></p>
             </div>
             <Form>
                 <ThemeProvider theme={theme}>
                     <div className={classes.input}>
-                        <Field type="email" color="primary" name="email" label="Email Address" component={TextField} InputLabelProps={{ shrink: true }} fullWidth/>
+                        <Field type="email" color="primary" name="email" label="Email Address" component={TextField} InputLabelProps={{ shrink: true }} fullWidth
+                        className={classes.singleField}/>
                     </div>
                     <div className={classes.input}>
-                        <Field type="password" color="primary" name="password" label="Password" InputLabelProps={{ shrink: true }} component={TextField} />
+                        <Field type="password" color="primary" name="password" label="Password" InputLabelProps={{ shrink: true }} component={TextField} 
+                        className={classes.singleField}/>
                     </div>
                     <div className={classes.buttonDiv}>
                         <Button className={classes.signin} type="submit" variant="contained" color="primary">Sign In</Button>
