@@ -1,9 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { makeStyles, withTheme } from '@material-ui/core/styles';
+import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import Values from './WelcomePageComponents/Values'
 import TopThree from './WelcomePageComponents/TopThree'
 import Description from './WelcomePageComponents/Description'
+import ProjectsPopup from './WelcomePageComponents/ProjectsPopup'
+
+import Popup from 'reactjs-popup'
 
 const useStyles = makeStyles({
     banner: {
@@ -71,6 +75,17 @@ const useStyles = makeStyles({
     }
 })
 
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: "#7932FF"
+        },
+        secondary: {
+          main: "#E33D3D"
+      }
+    }
+  })
+
 
 const WelcomePage = (props) => {
 
@@ -107,6 +122,22 @@ const WelcomePage = (props) => {
                 </div>
                 <div className={classes.valuesection}>
                     <Description />
+                </div>
+                <div>
+                    <ThemeProvider theme={theme}>
+                        <Popup 
+                        trigger={
+                                 <Button variant="contained" color="primary" style={{marginBottom: '3%'}}>Next</Button>
+                                }
+                        modal 
+                        closeOnDocumentClick={false} 
+                        style={{ width: '90vw', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            {close => {
+                            return <ProjectsPopup close={close}/>
+                            }}
+                            
+                        </Popup>
+                    </ThemeProvider>
                 </div>
             </div>
             
