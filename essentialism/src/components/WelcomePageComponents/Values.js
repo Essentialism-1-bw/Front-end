@@ -128,6 +128,18 @@ function FormFiled({ touched, status }) {
 
   const [value, setValue] = useState([]); 
 
+
+  const resetValues = () => {
+    setValue([])
+  }
+
+  const removeValue = (id) => {
+    let newValues = value.filter(value => {
+      return value.id !== id;
+    })
+    setValue(newValues)
+  }
+
     useEffect(() => {
         if (status) {
             setValue([...value, status])
@@ -198,6 +210,7 @@ function FormFiled({ touched, status }) {
             name="submit" 
             variant="contained"
             color="secondary"
+            onClick={() => resetValues()}
           >
             Remove All
           </Button>
@@ -208,7 +221,7 @@ function FormFiled({ touched, status }) {
         <br/>
       </Form>
 
-      <ValuesList value = {value}/>
+      <ValuesList value = {value} removeValue={removeValue}/>
 
     </Card>
   ); 

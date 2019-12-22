@@ -125,7 +125,7 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-function ValueList({value}){
+function ValueList({value, removeValue}){
 
   const classes = useStyles();
 
@@ -146,6 +146,7 @@ function ValueList({value}){
               name="add" 
               variant="contained"
               color="primary"
+              
             >
               +
             </Button>
@@ -155,6 +156,7 @@ function ValueList({value}){
               name="remove" 
               variant="contained"
               color="primary"
+              onClick={() => removeValue(valueList.id) }
             >
               x
             </Button>
