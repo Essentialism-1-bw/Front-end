@@ -1,14 +1,18 @@
 import React from 'react'
-import Values from './DashboardComponents/Values'
 import Projects from './DashboardComponents/Projects'
 
 const Dashboard = () => {
-
-   
+   let name = "Dustin";
     return (
         <div>
-            <h1>Dashboard</h1>
-            <Projects/>
+            <div style={{ height: '100vh' }}>
+                <div>
+                    <h2>Hello {name}</h2>
+                </div>
+            </div>
+            <div>
+                <Projects/>
+            </div>
         </div>
     )
 }

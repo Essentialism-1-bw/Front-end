@@ -14,7 +14,7 @@ const Reasons = () => {
         <div>
             {reasons.map(reason => {
                 return <div key={reason.id}>
-                    <h2>{reason.reason}</h2>
+                    <p>{reason.reason}</p>
                 </div>
             })}
         </div>
