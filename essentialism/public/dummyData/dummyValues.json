@@ -1,0 +1,17 @@
+[
+    {
+        "user_id": 1,
+        "value_id": 1,
+        "value_name": "Athleticism"
+    },
+    {
+        "user_id": 1,
+        "value_id": 4,
+        "value_name": "Creativity"
+    },
+    {
+        "user_id": 1,
+        "value_id": 15,
+        "value_name": "Sense of Humor"
+    }
+]
