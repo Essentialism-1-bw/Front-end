@@ -8,19 +8,23 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Button from '@material-ui/core/Button';
 
+import EditProjectsPopup from './EditProjectsPopup'
+
+import Popup from 'reactjs-popup'
+
 const useStyles = makeStyles({
     project: {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         margin: '5% 0',
-        justifyContent: 'center'
+        justifyContent: 'space-between'
     },
     projectData: {
         display: 'flex',
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        width: '40vw'
+        width: '60vw'
     },
     values: {
         display: 'flex',
@@ -68,7 +72,19 @@ const Projects = () => {
                                 <div className={classes.values}>
                                     <Values/>
                                     <div className={classes.buttons}>
-                                        <Button className={classes.button} variant="contained" color="primary">Edit</Button>
+                                        <Popup 
+                                        trigger={
+                                                <Button className={classes.button} variant="contained" color="primary">Edit</Button>
+                                                }
+                                        modal 
+                                        closeOnDocumentClick={false}
+                                        style={{ width: '90vw', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                            {close => {
+                                            return <EditProjectsPopup projects={projects} setProjects={setProjects} deleteProject={deleteProject} close={close}/>
+                                            }}
+                                            
+                                        </Popup>
+                                        
                                         <Button onClick={() => deleteProject(project.id)} className={classes.button} variant="contained" color="secondary">Delete</Button>
                                     </div>
                                 </div>

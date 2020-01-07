@@ -15,13 +15,14 @@ const useStyles = makeStyles({
     nav: {
         display: 'flex',
         justifyContent: 'space-evenly',
-        width: '99.3%',
+        width: '100%',
         alignItems: 'center',
         // backgroundColor: 'rgba(128, 128, 128, 0.7)'
         backgroundColor: 'black',
         padding: 10,
         position: 'sticky',
         top: 0,
+        zIndex: 999
     },
     leftCont: {
         display: 'flex',
