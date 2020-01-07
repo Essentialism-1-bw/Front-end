@@ -15,8 +15,8 @@ code {
 .BannerBG1{
   background-image: url("./components/img/BG1.jpg");
   background-color: gray; 
-  width: 100%;
-  height: 1300px; 
+  width: 100vw;
+  height: 100vh; 
   background-position: center; 
   background-repeat: no-repeat; 
   background-size: cover; 
@@ -25,18 +25,18 @@ code {
 .BannerBG2{
   background-image: url("./components/img/BG2.jpg");
   background-color: gray; 
-  width: 100%;
-  height: 1300px; 
+  width: 100vw;
+  height: 100vh; 
   background-position: center; 
   background-repeat: no-repeat; 
   background-size: cover; 
 }
 
-.BannerBG3{
-  background-image: url("./components/img/BG3.jpg");
+.BannerBG5{
+  background-image: url("./components/img/BG5.jpg");
   background-color: gray; 
-  width: 100%;
-  height: 1300px; 
+  width: 100vw;
+  height: 100vh; 
   background-position: center; 
   background-repeat: no-repeat; 
   background-size: cover; 

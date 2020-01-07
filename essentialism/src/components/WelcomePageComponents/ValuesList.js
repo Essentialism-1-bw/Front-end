@@ -1,11 +1,4 @@
 import React, {useState, useEffect} from "react";
-import Values from './Values'
-import { withFormik, Form, Field } from "formik";
-import * as Yup from "yup";
-import axios from "axios";
-import { Select } from 'formik-material-ui';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import { makeStyles, createMuiTheme, ThemeProvider, withTheme } from '@material-ui/core/styles'; 
@@ -44,14 +37,14 @@ const useStyles = makeStyles(theme => ({
     padding: 20, 
   },
   valueCard: {
-    width: '70%',
+    width: '90%',
   },
   valueiteam: {
     marginLeft: 40,
     display: "flex",
     justifyContent: "center",
     flexDirection: "row",
-    flexFlow: 'wrap',
+    flexWrap: 'wrap',
   },
   duelMenu: {
     marginRight: theme.spacing(1),
@@ -62,7 +55,6 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-end',
-    // border: '2px solid red',
     width: '60%',
     paddingLeft: 80,
   }, 
@@ -74,7 +66,6 @@ const useStyles = makeStyles(theme => ({
     padding: 10,
   },
   mainButton: {
-    // marginTop: 30,
     borderRadius: '15px',
     width: '50%',
     height: '40%',
@@ -125,14 +116,14 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-function ValueList({value, removeValue}){
+function ValueList({values, addValue}){
 
   const classes = useStyles();
 
   return (
     <div className={classes.valueCard}>    
     <div>
-      {value.map(valueList => (
+      {values.map(valueList => (
       <div key={valueList.id}>
           <Card className={classes.linkCard}>
             <div className={classes.valueiteam}>
@@ -140,26 +131,6 @@ function ValueList({value, removeValue}){
             </div>
             <div className={classes.addremove}>
             <ThemeProvider theme={theme}>
-            <Button 
-              className={classes.add}
-              type="submit" 
-              name="add" 
-              variant="contained"
-              color="primary"
-              
-            >
-              +
-            </Button>
-            <Button 
-              className={classes.remove}
-              type="submit" 
-              name="remove" 
-              variant="contained"
-              color="primary"
-              onClick={() => removeValue(valueList.id) }
-            >
-              x
-            </Button>
             </ThemeProvider>
             </div>
           </Card>
@@ -168,6 +139,7 @@ function ValueList({value, removeValue}){
     </div>
   </div>
   )
+
   }
 
   export default ValueList;
