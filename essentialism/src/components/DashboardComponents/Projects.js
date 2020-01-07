@@ -7,6 +7,7 @@ import Reasons from './Reasons';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
 
 import EditProjectsPopup from './EditProjectsPopup'
 
@@ -17,14 +18,16 @@ const useStyles = makeStyles({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        margin: '5% 0',
-        justifyContent: 'space-between'
+        marginBottom: '5%',
+        justifyContent: 'center'
     },
     projectData: {
         display: 'flex',
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        width: '60vw'
+        width: '60vw',
+        padding: 30,
+        marginTop: '4%'
     },
     values: {
         display: 'flex',
@@ -36,14 +39,15 @@ const useStyles = makeStyles({
         justifyContent: 'space-evenly'
     },
     projectTitle: {
-        backgroundColor: '#a9a9a9',
+        backgroundColor: '#333131',
         width: '100vw',
         color: 'white'
     },
     button: {
         padding: '.2rem 1.6rem',
         borderRadius: '1rem'
-    }
+    },
+
 })
 
 const Projects = () => {
@@ -66,9 +70,9 @@ const Projects = () => {
             {projects.map(project => {
                 return <div key={project.id} className={classes.project}>
                             <div className={classes.projectTitle}>
-                                <h2>{project.name}</h2>
+                                <h1>{project.name}</h1>
                             </div>
-                            <div className={classes.projectData}>
+                            <Card className={classes.projectData}>
                                 <div className={classes.values}>
                                     <Values/>
                                     <div className={classes.buttons}>
@@ -89,7 +93,7 @@ const Projects = () => {
                                     </div>
                                 </div>
                                 <Reasons/>
-                            </div>
+                            </Card>
                         </div>
             })}
         </div>
