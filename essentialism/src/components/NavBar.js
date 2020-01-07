@@ -17,7 +17,6 @@ const useStyles = makeStyles({
         justifyContent: 'space-evenly',
         width: '100%',
         alignItems: 'center',
-        // backgroundColor: 'rgba(128, 128, 128, 0.7)'
         backgroundColor: 'black',
         padding: 10,
         position: 'sticky',

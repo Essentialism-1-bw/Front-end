@@ -22,7 +22,7 @@ const theme = createMuiTheme({
 const useStyles = makeStyles(theme => ({
   box: {
     width: "100%",
-    margin: 100,
+    // margin: 50,
     display: "flex",
     flexDirection: 'row',
     justifyContent: "space-between",
@@ -30,26 +30,27 @@ const useStyles = makeStyles(theme => ({
   },
   info: {
     background: "white",
-    width: '40%',
+    width: '50%',
+    padding: 28,
   },
 
   infoForm: {
-    width: '40%',
+    width: '50%',
+    padding: 20,
   },
 
   sumbitButton: {
-    marginTop: 30,
     borderRadius: '15px',
     width: '100%',
   },
   singleField: {
     marginRight: theme.spacing(1),
-    width: 800,
+    width: '100%',
     marginTop: theme.spacing(2),
   },
   buttonDiv: {
-    width: '40%',
-    marginTop: 100,
+    width: '50%',
+    marginTop: 130,
     display: 'flex',
     justifyContent: 'flex-end',
     flexDirection: 'column',
@@ -134,14 +135,8 @@ function FormFiled({ touched, status }) {
             }}
           />
             {touched.email}
-          <br/>
-          <br/>
-          <br/>
         </div>       
         </ThemeProvider>
-        
-        <br/>
-        <br/>
       </Form>
 
       <Card

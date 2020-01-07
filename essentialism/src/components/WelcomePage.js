@@ -1,12 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Values from './WelcomePageComponents/Values'
-import TopThree from './WelcomePageComponents/TopThree'
+import Values from './WelcomePageComponents/Values/Values'
 import Description from './WelcomePageComponents/Description'
 import ProjectsPopup from './WelcomePageComponents/ProjectsPopup'
-
 import Popup from 'reactjs-popup'
 
 const useStyles = makeStyles({
@@ -42,22 +39,18 @@ const useStyles = makeStyles({
     },
     section3: {
         display: 'flex',
+        flexFlow: 'row',
         justifyContent: 'center',
-        width: '96.15%',
+        width: '99.3%',
         alignItems: 'center',
         backgroundColor: '#1D1D1D',
-        padding: 50,
-        paddingTop: 200, 
-        paddingBottom: 200, 
+        padding: 10,
     },
     valuesection: {
-        paddingTop: 200, 
-        paddingBottom: 200,
         display: 'flex',
         justifyContent: 'space-evenly',
-        width: '90%',
+        width: '100%',
         alignItems: 'center',
-        padding: 100,
     },
     mainTitle: {
         color: 'white',
@@ -72,6 +65,9 @@ const useStyles = makeStyles({
         fontWeight: 1000,
         display: 'flex',
         alignItems: 'center',
+    }, 
+    boxD: {
+        padding: 300,
     }
 })
 
@@ -92,7 +88,7 @@ const WelcomePage = (props) => {
     const classes = useStyles();
 
     return (
-        <div className="BannerBG3">
+        <div className="BannerBG5">
             <div className={classes.banner}>
                 <div className={classes.centerCont}>
                     <h1 className={classes.mainTitle}>Hello John Doe</h1>
@@ -106,32 +102,33 @@ const WelcomePage = (props) => {
                     <h1 className={classes.mainTitle}>Welcome to The Essentialism App that allows you to list your project priorities according to your values.</h1>
                     <br/>
                     </div>
-                    <h2 className={classes.mainTitle}>The first step is to select your 5 favorite values</h2>
                 </div>
                 <div className={classes.valuesection}>
                     <Values />
                 </div>
-                <div className={classes.section1}>
-                    <h2 className={classes.mainTitle}>Now select your top 3 choices</h2>
-                </div>
-                <div className={classes.section3}>
-                    <TopThree />
-                </div>
                 <div className={classes.section2}>
-                    <h2 className={classes.mainTitle}>Add your value description</h2>
+                    <h2 className={classes.mainTitle}>3. Add your value description</h2>
                 </div>
-                <div className={classes.valuesection}>
+                <div className={classes.boxD}>
                     <Description />
                 </div>
-                <div>
+                <div className={classes.section3} >
+                <h2 className={classes.mainTitle}>4. NOW CLICK </h2>
                     <ThemeProvider theme={theme}>
                         <Popup 
-                        trigger={
-                                 <Button variant="contained" color="primary" style={{marginBottom: '3%'}}>Next</Button>
-                                }
+                            trigger={
+                                <Button 
+                                variant="contained" 
+                                color="primary" 
+                                style={{margin: '3%'}}
+                                >
+                                Next
+                                </Button>
+                            }
                         modal 
                         closeOnDocumentClick={false} 
-                        style={{ width: '90vw', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        style={{ width: '90vw', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                        >
                             {close => {
                             return <ProjectsPopup close={close}/>
                             }}
