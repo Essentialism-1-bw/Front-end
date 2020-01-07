@@ -121,7 +121,7 @@ const ProjectsPopup = ({ close, projects, setProjects, deleteProject }) => {
                     }) : null}
                 </div>
                 <div style={{marginTop: '3%'}}>
-                    {submitStatus === true ? <Link to="/dashboard"><Button onClick={close} variant="contained" color="primary" >Submit</Button></Link> : errorText}
+                    {submitStatus === true ? <Button onClick={close} variant="contained" color="primary" >Submit</Button> : errorText}
                 </div>
             </ThemeProvider>
         </div>
