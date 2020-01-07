@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import ReagisterForm from "./RegisterForm";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import { axiosWithAuth } from "../../Authentication/axiosWithAuth";
 
 const useStyles = makeStyles({
   banner: {
@@ -49,19 +48,6 @@ const Reagister = props => {
       ...credentials,
       [e.target.name]: e.target.value
     });
-  };
-
-  const register = e => {
-    e.preventDefault();
-    axiosWithAuth()
-      .post(
-        "https://bw-essentialism.herokuapp.com/api/auth/register",
-        credentials
-      )
-      .then(res => {
-        props.history.push("/login");
-      })
-      .catch(err => console.log(err));
   };
 
   return (

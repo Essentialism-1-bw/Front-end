@@ -14,4 +14,4 @@ export const axiosWithAuth = () => {
   });
 };
 
-axiosWithAuth().get("/api/users");
+// axiosWithAuth().get("/api/users");

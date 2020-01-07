@@ -3,6 +3,7 @@ import SignInForm from "./SignInForm";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { axiosWithAuth } from "../../Authentication/axiosWithAuth";
+import axios from "axios";
 
 const useStyles = makeStyles({
   banner: {
@@ -50,13 +51,12 @@ const SignIn = props => {
 
   const login = e => {
     e.preventDefault();
-    axiosWithAuth()
+    axios
       .post("/auth/login", credentials)
       .then(res => {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("user_id", res.data.user_id);
         console.log(res.data);
-        props.history.push("/allvalues");
       })
       .catch(err => console.log(err));
   };
