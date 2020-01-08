@@ -83,8 +83,6 @@ const theme = createMuiTheme({
   }
 });
 
-const WelcomePage = props => {
-  const classes = useStyles();
 
 const WelcomePage = (props) => {
 
@@ -141,8 +139,6 @@ const WelcomePage = (props) => {
             </div>
             
         </div>
-      </div>
-    </div>
   );
 };
 
