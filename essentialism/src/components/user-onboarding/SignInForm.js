@@ -13,6 +13,8 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 
+import { useHistory } from 'react-router-dom'
+
 const useStyles = makeStyles({
   card: {
     borderRadius: "15px",
@@ -62,8 +64,17 @@ const theme = createMuiTheme({
   }
 });
 
-const SignInForm = () => {
+const SignInForm = ({status}) => {
+
   const classes = useStyles();
+  
+
+  // useEffect(() => {
+  //   const goHome = () => {
+  //     history.push('/welcome')
+  //   }
+  //   if(status) goHome()
+  // }, [status, history])
   return (
     <Card className={classes.card}>
       <div style={{ width: "86%" }}>
@@ -116,35 +127,48 @@ const SignInForm = () => {
   );
 };
 
-const FormikSignInForm = withFormik({
-  mapPropsToValues({ email, password }) {
-    return {
-      email: email || "",
-      password: password || ""
-    };
-  },
-  validationSchema: Yup.object().shape({
-    email: Yup.string()
-      .email("Email not valid")
-      .required(),
-    password: Yup.string()
-      .min(8, "Password must be at least 8 characters long")
-      .required()
-  }),
-  handleSubmit(values, { resetForm, setStatus, setSubmitting }) {
-    axios
-      .post("https://bw-essentialism.herokuapp.com/api/auth/login", values)
-      .then(res => {
-        localStorage.setItem("token", res.data.token);
-        setStatus(res.data);
-        resetForm();
-        setSubmitting(false);
-      })
-      .catch(err => {
-        console.log(err);
-        setSubmitting(false);
-      });
+const CreateForm = () => {
+  const history = useHistory()
+  const goHome = () => {
+    history.push('/welcome')
   }
-})(SignInForm);
 
-export default FormikSignInForm;
+  const FormikSignInForm = withFormik({
+  
+    mapPropsToValues({ email, password }) {
+      return {
+        email: email || "",
+        password: password || ""
+      };
+    },
+    validationSchema: Yup.object().shape({
+      email: Yup.string()
+        .email("Email not valid")
+        .required(),
+      password: Yup.string()
+        .min(8, "Password must be at least 8 characters long")
+        .required()
+    }),
+    handleSubmit(values, { resetForm, setStatus, setSubmitting }) {
+      axios
+        .post("https://bw-essentialism.herokuapp.com/api/auth/login", values)
+        .then(res => {
+          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("user_id", res.data.id);
+          setStatus(res.data);
+          resetForm();
+          setSubmitting(false);
+          goHome();
+        })
+        .catch(err => {
+          console.log(err);
+          setSubmitting(false);
+        });
+    }
+  })(SignInForm);
+  
+  return <FormikSignInForm/>
+
+}
+
+export default CreateForm;
