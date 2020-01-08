@@ -150,9 +150,9 @@ const useStyles = makeStyles({
 });
 
 
-const AddTopThreeForm = ({ status, topThree, addValue, removeValue, resetValues}) => {
+const AddTopThreeForm = ({ status, topThree, values, addValue, removeValue, resetValues}) => {
 
-  console.log(topThree);
+  // console.log(topThree);
   
   const classes = useStyles();
 
@@ -176,10 +176,10 @@ const AddTopThreeForm = ({ status, topThree, addValue, removeValue, resetValues}
                 >
                   {topThree.map(valueList => (
                   <MenuItem 
-                    id={valueList.Top3valueIteam}
-                    value={valueList.Top3valueIteam}
+                    id={valueList.valueIteam}
+                    value={valueList.valueIteam}
                   >
-                    {valueList.Top3valueIteam}
+                    {valueList.valueIteam}
                   </MenuItem>
                   ))}
                 </Field>
@@ -213,13 +213,13 @@ const AddTopThreeForm = ({ status, topThree, addValue, removeValue, resetValues}
 }
 
 const TopThreeForm = withFormik({
-  mapPropsToValues({ Top3valueIteam }) {
+  mapPropsToValues({ valueIteam }) {
       return {
-        Top3valueIteam: Top3valueIteam || "",
+        valueIteam: valueIteam || "",
       }
   },
   validationSchema: Yup.object().shape({
-    Top3valueIteam: Yup
+    valueIteam: Yup
       .string()
       .required()
   }),

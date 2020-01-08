@@ -127,7 +127,6 @@ const ValueFiled = () => {
 
   return (
     <div className={classes.mainroot}>
-      {console.log(values)}
       <h2 className={classes.mainTitle}>1. The first step is to select your 5 favorite values</h2>
       <Card className={classes.card}>
         <ValueForm addValue={addValue} values={values} resetValues={resetValues}/>
