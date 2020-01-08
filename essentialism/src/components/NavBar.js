@@ -1,15 +1,19 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import React from "react";
+import { Link } from "react-router-dom";
+import {
+  makeStyles,
+  createMuiTheme,
+  ThemeProvider
+} from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 
 const theme = createMuiTheme({
-    palette: {
-        primary: {
-            main: "#7932FF"
-        }
+  palette: {
+    primary: {
+      main: "#7932FF"
     }
-})
+  }
+});
 
 const useStyles = makeStyles({
     nav: {
@@ -45,26 +49,41 @@ const useStyles = makeStyles({
 })
 
 const NavBar = () => {
-    const classes = useStyles();
-    return (
-        <nav className={classes.nav}>
-            <div className={classes.leftCont}>
-                <Link className={classes.link} to="/">
-                    <img className={classes.logo} src={require("../logo.png")} alt="logo"/>
-                </Link>
-                <Link className={classes.link} to="/">
-                    <h1 className={classes.mainTitle}>Essentialism</h1>
-                </Link>
-            </div>
-            <Link className={classes.link} to="/">Home</Link>
-            <Link className={classes.link} to="/login">Sign In</Link>
-            <Link className={classes.link} to="/dashboard">
-                <ThemeProvider theme={theme}>
-                    <Button className={classes.link} style={{borderRadius: '15px', height: '35px'}} variant="contained" color="primary">Dashboard</Button>
-                </ThemeProvider>
-            </Link>
-        </nav>
-    )
-}
+  const classes = useStyles();
+  return (
+    <nav className={classes.nav}>
+      <div className={classes.leftCont}>
+        <Link className={classes.link} to="/">
+          <img
+            className={classes.logo}
+            src={require("../logo.png")}
+            alt="logo"
+          />
+        </Link>
+        <Link className={classes.link} to="/">
+          <h1 className={classes.mainTitle}>Essentialism</h1>
+        </Link>
+      </div>
+      <Link className={classes.link} to="/">
+        Home
+      </Link>
+      <Link className={classes.link} to="/login">
+        Sign In
+      </Link>
+      <Link className={classes.link} to="/dashboard">
+        <ThemeProvider theme={theme}>
+          <Button
+            className={classes.link}
+            style={{ borderRadius: "15px", height: "35px" }}
+            variant="contained"
+            color="primary"
+          >
+            Dashboard
+          </Button>
+        </ThemeProvider>
+      </Link>
+    </nav>
+  );
+};
 
-export default NavBar
+export default NavBar;

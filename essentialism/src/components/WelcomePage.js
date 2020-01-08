@@ -1,3 +1,4 @@
+
 import React from 'react'
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -72,16 +73,18 @@ const useStyles = makeStyles({
 })
 
 const theme = createMuiTheme({
-    palette: {
-        primary: {
-            main: "#7932FF"
-        },
-        secondary: {
-          main: "#E33D3D"
-      }
+  palette: {
+    primary: {
+      main: "#7932FF"
+    },
+    secondary: {
+      main: "#E33D3D"
     }
-  })
+  }
+});
 
+const WelcomePage = props => {
+  const classes = useStyles();
 
 const WelcomePage = (props) => {
 
@@ -139,7 +142,9 @@ const WelcomePage = (props) => {
             </div>
             
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
-export default WelcomePage
+export default WelcomePage;
