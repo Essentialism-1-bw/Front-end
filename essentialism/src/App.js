@@ -8,6 +8,7 @@ import Register from "./components/user-register/Register";
 import Dashboard from "./components/Dashboard";
 import WelcomePage from "./components/WelcomePage";
 import { Route } from "react-router-dom";
+import PrivateRoute from "./Authentication/PrivateRoute";
 
 function App() {
   return (
@@ -15,9 +16,15 @@ function App() {
       <NavBar />
 
       {/* ROUTING */}
-      <Route exact path="/" render={props => <WelcomePage />} />
-      <Route path="/dashboard" render={props => <Dashboard {...props} />} />
-      <Route path="/login" render={props => <SignIn />} />
+      <PrivateRoute path="/welcome">
+        <WelcomePage />
+      </PrivateRoute>
+      {/* <Route exact path="/" render={props => <WelcomePage />} /> */}
+      <PrivateRoute path="/dashboard">
+        <Dashboard />
+      </PrivateRoute>
+      {/* <Route path="/dashboard" render={props => <Dashboard {...props} />} /> */}
+      <Route exact path="/" render={props => <SignIn />} />
       <Route path="/signup" render={props => <Register />} />
       {/* <Route exact path="/" render={props => }/> */}
     </div>
