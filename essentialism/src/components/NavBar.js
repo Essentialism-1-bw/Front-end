@@ -16,37 +16,37 @@ const theme = createMuiTheme({
 });
 
 const useStyles = makeStyles({
-  nav: {
-    display: "flex",
-    justifyContent: "space-evenly",
-    width: "99.3%",
-    alignItems: "center",
-    // backgroundColor: 'rgba(128, 128, 128, 0.7)'
-    backgroundColor: "black",
-    padding: 10,
-    position: "sticky",
-    top: 0
-  },
-  leftCont: {
-    display: "flex",
-    width: "50%"
-  },
-  logo: {
-    width: 50,
-    height: 50
-  },
-  mainTitle: {
-    color: "white",
-    marginLeft: "10%"
-  },
-  link: {
-    textDecoration: "none",
-    color: "white",
-    fontWeight: 700,
-    display: "flex",
-    alignItems: "center"
-  }
-});
+    nav: {
+        display: 'flex',
+        justifyContent: 'space-evenly',
+        width: '100%',
+        alignItems: 'center',
+        backgroundColor: 'black',
+        padding: 10,
+        position: 'sticky',
+        top: 0,
+        zIndex: 999
+    },
+    leftCont: {
+        display: 'flex',
+        width: '50%'
+    },
+    logo: {
+        width: 50,
+        height: 50,
+    },
+    mainTitle: {
+        color: 'white',
+        marginLeft: '10%'
+    },
+    link: {
+        textDecoration: 'none',
+        color: 'white',
+        fontWeight: 700,
+        display: 'flex',
+        alignItems: 'center'
+    }
+})
 
 const NavBar = () => {
   const classes = useStyles();
