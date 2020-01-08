@@ -16,58 +16,58 @@ const theme = createMuiTheme({
 });
 
 const useStyles = makeStyles({
-    nav: {
-        display: 'flex',
-        justifyContent: 'space-evenly',
-        width: '100%',
-        alignItems: 'center',
-        backgroundColor: 'black',
-        padding: 10,
-        position: 'sticky',
-        top: 0,
-        zIndex: 999
-    },
-    leftCont: {
-        display: 'flex',
-        width: '50%'
-    },
-    logo: {
-        width: 50,
-        height: 50,
-    },
-    mainTitle: {
-        color: 'white',
-        marginLeft: '10%'
-    },
-    link: {
-        textDecoration: 'none',
-        color: 'white',
-        fontWeight: 700,
-        display: 'flex',
-        alignItems: 'center'
-    }
-})
+  nav: {
+    display: "flex",
+    justifyContent: "space-evenly",
+    width: "100%",
+    alignItems: "center",
+    backgroundColor: "black",
+    padding: 10,
+    position: "sticky",
+    top: 0,
+    zIndex: 999
+  },
+  leftCont: {
+    display: "flex",
+    width: "50%"
+  },
+  logo: {
+    width: 50,
+    height: 50
+  },
+  mainTitle: {
+    color: "white",
+    marginLeft: "10%"
+  },
+  link: {
+    textDecoration: "none",
+    color: "white",
+    fontWeight: 700,
+    display: "flex",
+    alignItems: "center"
+  }
+});
 
 const NavBar = () => {
   const classes = useStyles();
   return (
     <nav className={classes.nav}>
       <div className={classes.leftCont}>
-        <Link className={classes.link} to="/">
+        <Link className={classes.link} to="/welcome">
           <img
             className={classes.logo}
             src={require("../logo.png")}
             alt="logo"
           />
         </Link>
-        <Link className={classes.link} to="/">
+        <Link className={classes.link} to="/welcome">
           <h1 className={classes.mainTitle}>Essentialism</h1>
         </Link>
       </div>
-      <Link className={classes.link} to="/">
+      <Link className={classes.link} to="/welcome">
         Home
       </Link>
-      <Link className={classes.link} to="/login">
+      <Link className={classes.link} to="/">
         Sign In
       </Link>
       <Link className={classes.link} to="/dashboard">
