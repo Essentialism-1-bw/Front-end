@@ -11,6 +11,7 @@ import {
 import Card from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import CircularProgress from '@material-ui/core/CircularProgress'
 import { Link } from "react-router-dom";
 
 import { useHistory } from 'react-router-dom'
@@ -44,15 +45,27 @@ const useStyles = makeStyles({
     color: "#7932FF"
   },
   signin: {
-    marginTop: 10,
-    borderRadius: "15px"
+    borderRadius: "15px",
+    zIndex: 990,
   },
   buttonDiv: {
     display: "flex",
-    justifyContent: "flex-end"
+    justifyContent: "flex-end",
+    alignItems: 'center'
   },
   singleField: {
     width: 470
+  },
+  buttonProgress: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginTop: -12,
+    marginLeft: -12,
+    zIndex: 999
+  },
+    wrapper: {
+      position: 'relative',
   }
 });
 
@@ -64,17 +77,9 @@ const theme = createMuiTheme({
   }
 });
 
-const SignInForm = ({status}) => {
-
+const SignInForm = ({isSubmitting}) => {
   const classes = useStyles();
   
-
-  // useEffect(() => {
-  //   const goHome = () => {
-  //     history.push('/welcome')
-  //   }
-  //   if(status) goHome()
-  // }, [status, history])
   return (
     <Card className={classes.card}>
       <div style={{ width: "86%" }}>
@@ -112,14 +117,19 @@ const SignInForm = ({status}) => {
             />
           </div>
           <div className={classes.buttonDiv}>
-            <Button
-              className={classes.signin}
-              type="submit"
-              variant="contained"
-              color="primary"
-            >
-              Sign In
-            </Button>
+            <div className={classes.wrapper}>
+              <Button
+                className={classes.signin}
+                type="submit"
+                variant="contained"
+                color="primary"
+                disabled={isSubmitting}
+              >
+                Sign In
+                </Button>
+                {isSubmitting && <CircularProgress size={24} className={classes.buttonProgress}/>}
+            </div>
+            
           </div>
         </ThemeProvider>
       </Form>
