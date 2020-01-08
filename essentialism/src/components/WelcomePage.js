@@ -96,7 +96,6 @@ const WelcomePage = (props) => {
                 <div className={classes.centerCont}>
                     <h1 className={classes.mainTitle}>Hello John Doe</h1>
                     <p className={classes.body}>Regain control of your own choices about where to spend your time and energy instead of giving others implicit permission to choose for you.</p>
-                    {/* <GetStarted /> */}
                 </div>
             </div>
             <div className={classes.reactApp}>

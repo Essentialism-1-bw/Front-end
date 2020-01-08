@@ -37,10 +37,10 @@ const useStyles = makeStyles({
       borderRadius: '15px',
       width: "80%",
       padding: 40,
-      paddingTop: 80,
+      paddingTop: 30,
       paddingBottom: 80,
       display: "flex",
-      flexDirection: "row",
+      flexDirection: "column",
       flexWrap: 'wrap',
       justifyContent: "space-evenly",
       alignItems: "center",
@@ -56,21 +56,24 @@ const useStyles = makeStyles({
       width: '100%',
       color: '#262626 ',
       background: '#FBFBFB ',
-      padding: 6,
+      paddingLeft: 6,
+      paddingRight: 6,
       margin: 10,
       display: 'flex', 
       flexDirection: 'row', 
       justifyContent: 'space-between',
       alignItems: 'center',
+      border: '2p solid red', 
     },
     valueiteam: {
       width: '100%',
       padding: 6,
-      margin: 30,
+      margin: 20,
       display: "flex",
       justifyContent: "flex-start",
       flexDirection: "row",
       flexWrap: 'wrap',
+      border: '2p solid green',
     },
   projectCard: {
       borderRadius: '15px',
@@ -98,7 +101,6 @@ const useStyles = makeStyles({
       border: '1px solid #cfcece'
   },
   buttonDiv: {
-    // border: '2px solid green',
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -132,16 +134,17 @@ const useStyles = makeStyles({
     margin: 0,
     textAlign: 'center',
   },
+  centerText: {
+    textAlign: 'center',
+  },
 })
 
 
 
-const Top3FormFiled = ({ status, values, removeValue, resetValues, close }) => {
+const Top3FormFiled = ({ values, resetValues, close }) => {
 
-  let [topThree, setTopThree] = useState([])
-
-  // setTopThree(values); 
-  console.log(values);
+  const [topThree, setTopThree] = useState(values)
+  console.log(topThree);
 
   const [submitStatus, setSubmitStatus] = useState(true)
 
@@ -150,18 +153,24 @@ const Top3FormFiled = ({ status, values, removeValue, resetValues, close }) => {
   useEffect(() => {
       if(topThree.length < 3) {
           setSubmitStatus(false)
-          setErrorText("Must have at least 3 projects.")
+          setErrorText("Must have at least 3 values.")
       } else if(topThree.length > 3) {
           setSubmitStatus(false)
-          setErrorText("No more than 3 projects.")
+          setErrorText("No more than 3 values.")
       } else {
           setSubmitStatus(true)
       }
-      console.log(topThree);
   }, [topThree.length])
 
   const addValue = (value) => {
     setTopThree([...topThree, value])
+  }
+
+  const removeValue = (id) => {
+    let newTop3Values = topThree.filter(value => {
+      return value.id !== id;
+    })
+    setTopThree(newTop3Values)
   }
 
   const classes = useStyles()
@@ -169,34 +178,64 @@ const Top3FormFiled = ({ status, values, removeValue, resetValues, close }) => {
   return (
       <div className={classes.popup}>
           <button className={classes.close} style={{ zIndex: '000' }} onClick={close}>&times;</button>
-          <h3 className={classes.mainTitle}>2. Now select your top 3 favorite values from the 5 you choes previously</h3>
+          <h3 className={classes.mainTitle}>2. Now select your top 3 favorite values from the 5 you choes previously by removing 2 values</h3>
           <Card className={classes.card}>
-              <h1>Your top 5 values:</h1> 
-              <ValuesPopupForm addValue={addValue} topThree={topThree} resetValues={resetValues}/>
+              <h4 className={classes.centerText}>Remove 2 values for your top 5 values:</h4> 
+              {/* <ValuesPopupForm addValue={addValue} topThree={topThree} values={values} resetValues={resetValues}/> */}
 
-              {topThree && topThree.map(topThree => {
-                return (
-                  <Card className={classes.valueList} key={topThree.id}>
-                  <div className={classes.Top3valueIteam}>
-                    <p>{topThree.Top3valueIteam}</p>
-                  </div>
-                  <div className={classes.buttonDiv}>
-                    <Button 
-                      className={classes.remove}
-                      name="remove" 
-                      variant="contained"
-                      color="secondary"
-                      onClick={() => removeValue(topThree.id)}
-                      >
-                      &times;
-                    </Button>
-                  </div> 
-                </Card>
-                )
-              })}
+              <h1 className={classes.centerText}>Your top 3 values:</h1>  
+            {topThree !== undefined ? topThree.map(topThree => {
+              return (
+                <Card className={classes.valueList} key={topThree.id}>
+                <div className={classes.valueiteam}>
+                  <p>{topThree.valueIteam}</p>
+                </div>
+                <div className={classes.buttonDiv}>
+                  <Button 
+                    className={classes.remove}
+                    name="remove" 
+                    variant="contained"
+                    color="secondary"
+                    onClick={() => removeValue(topThree.id)}
+                    >
+                    &times;
+                  </Button>
+                </div> 
+              </Card>
+              )
+            }): null}
+
+        <div style={{margin: '3%'}}>
+          {submitStatus === true ? 
+            <div>
+              <ThemeProvider theme={theme}>
+                  <Popup 
+                      trigger={
+                          <Button 
+                          variant="contained" 
+                          color="primary" 
+                          style={{margin: '3%'}}
+                          onClick={close}
+                          >
+                          Submit
+                          </Button>
+                      }
+                  // modal 
+                  closeOnDocumentClick={true} 
+                  // style={{ width: '100vw', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                  >
+                      {close => {
+                      return (
+                      <div>Awesome choice</div>
+                      )
+                      }}
+                  </Popup>
+              </ThemeProvider>
+            </div>  
+            : errorText}
+          </div>
+
           </Card>
-
-          <h1>Your top 3 values:</h1>   
       </div>
   )
 }
@@ -230,4 +269,4 @@ const ValueForm = withFormik({
   }
 })(Top3FormFiled);
 
-export default ValueForm
+export default Top3FormFiled

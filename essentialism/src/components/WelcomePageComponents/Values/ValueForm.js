@@ -31,7 +31,6 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   }, 
   card: {
-    // borderRadius: '15px',
     width: "100%",
     padding: 40,
     display: "flex",
@@ -139,7 +138,6 @@ const FormFiled = ({ status, addValue, resetValues }) => {
               <MenuItem id={'value-15'} value={'Sense of humor'}>Sense of humor</MenuItem>
               <MenuItem id={'value-16'} value={'Success in my career'}>Success in my career</MenuItem>
           </Field>
-            {/* {touched.valueIteam} */}
           <br/>
           <br/>
           <br/>
