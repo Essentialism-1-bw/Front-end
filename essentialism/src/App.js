@@ -10,23 +10,28 @@ import WelcomePage from "./components/WelcomePage";
 import { Route } from "react-router-dom";
 import PrivateRoute from "./Authentication/PrivateRoute";
 
+import AnimatedSwitch from './components/AnimatedSwitch'
+import AnimatedRoute from './components/AnimatedRoute'
+
 function App() {
   return (
     <div className="App">
       <NavBar />
 
       {/* ROUTING */}
-      <PrivateRoute path="/welcome">
-        <WelcomePage />
-      </PrivateRoute>
-      {/* <Route exact path="/" render={props => <WelcomePage />} /> */}
-      <PrivateRoute path="/dashboard">
-        <Dashboard />
-      </PrivateRoute>
-      {/* <Route path="/dashboard" render={props => <Dashboard {...props} />} /> */}
-      <Route exact path="/" render={props => <SignIn />} />
-      <Route path="/signup" render={props => <Register />} />
-      {/* <Route exact path="/" render={props => }/> */}
+      <AnimatedSwitch animationClassName="page-slide" animationTimeout={300}>
+        <PrivateRoute path="/welcome">
+          <WelcomePage />
+        </PrivateRoute>
+        {/* <Route exact path="/" render={props => <WelcomePage />} /> */}
+        <PrivateRoute path="/dashboard">
+          <Dashboard />
+        </PrivateRoute>
+        {/* <Route path="/dashboard" render={props => <Dashboard {...props} />} /> */}
+        <Route exact path="/" render={props => <SignIn />} />
+        <Route path="/signup" render={props => <Register />} />
+        {/* <Route exact path="/" render={props => }/> */}
+      </AnimatedSwitch>
     </div>
   );
 }
