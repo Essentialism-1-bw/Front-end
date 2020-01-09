@@ -74,7 +74,7 @@ const useStyles = makeStyles(theme => ({
   triField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: "25%",
+    width: "24%",
   },
   title: {
     color: "#000",
