@@ -41,3 +41,19 @@ code {
   background-repeat: no-repeat; 
   background-size: cover; 
 }
+
+
+.page-slide-enter {
+  transform: scale(1.05);
+}
+.page-slide-enter.page-slide-enter-active {
+  transform: scale(1);
+  transition: transform 450ms ease-in-out;
+}
+.page-slide-exit {
+  transform: scale(1.05);
+}
+.page-slide-exit.page-slide-exit-active {
+  transform: scale(1.05);
+  transition: transform 450ms ease-in-out;
+}
