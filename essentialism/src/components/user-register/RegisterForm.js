@@ -10,7 +10,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Card from '@material-ui/core/Card';
 import Typography from "@material-ui/core/Typography";
 import Button from '@material-ui/core/Button';
-// import { DatePicker } from "@material-ui/pickers";
+import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker,
@@ -102,8 +102,7 @@ function RegisterForm({values, errors, touched, status}) {
 
     const classes = useStyles();
 
-    // const [selectedDate, handleDateChange] = useState(new Date());
-    const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
+    const [selectedDate, setSelectedDate] = React.useState(new Date());
 
     const handleDateChange = date => {
       setSelectedDate(date);
@@ -112,7 +111,6 @@ function RegisterForm({values, errors, touched, status}) {
   return (
     <Card className={classes.card}>
         <Form>
-        {/* <h1>Create an account</h1> */}
         <Typography className={classes.title}>Create an account</Typography>
         <p style={{ fontSize: ".8rem" }}>Already have an account? <Link to="/" className={classes.signup}>Sign In</Link> </p>
         <br/>
@@ -183,9 +181,8 @@ function RegisterForm({values, errors, touched, status}) {
           Date of birth
         </InputLabel>
         <br/>
-        <br/>
 
-        <InputLabel shrink id="month">
+        {/* <InputLabel shrink id="month">
           Month
         </InputLabel>
         <Field 
@@ -237,20 +234,23 @@ function RegisterForm({values, errors, touched, status}) {
             shrink: true,
           }}
         />
-          {touched.year}
-          {/* <MuiPickersUtilsProvider>
-          <Fragment>
+          {touched.year} */}
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <Fragment>
             <KeyboardDatePicker
               clearable
+              name="Date of Birth"
+              className={classes.singleMenu}
               value={selectedDate}
               placeholder="10/10/2018"
               onChange={date => handleDateChange(date)}
-              minDate={new Date()}
+              // minDate={new Date()}
+              maxDate={new Date()}
               format="MM/dd/yyyy"
             />
+            {touched.date}
           </Fragment>
-          </MuiPickersUtilsProvider> */}
-          
+        </MuiPickersUtilsProvider>        
         <br/>
         <br/>
         <br/>
@@ -326,8 +326,6 @@ const FormData = withFormik({
     email: Yup
       .string()
       .email()
-      // .min(3, "Email is not long enough")
-      // .max(50, "Email is too long")
       .required("Please enter Email addres"),
     firstName: Yup
       .string()

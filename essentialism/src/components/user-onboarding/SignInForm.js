@@ -50,7 +50,7 @@ const useStyles = makeStyles({
     alignItems: 'center'
   },
   singleField: {
-    width: 350
+    width: 300
   },
   buttonProgress: {
     position: 'absolute',
