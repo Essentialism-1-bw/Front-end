@@ -8,30 +8,44 @@ import axios from "axios";
 const useStyles = makeStyles({
   banner: {
     display: "flex",
+    flexFlow: "row",
+    flexWrap: "wrap",
     justifyContent: "space-evenly",
     width: "100%",
     height: "100%",
     alignItems: "center",
+    alignContent: "center",
     backgroundColor: "rgba(128, 128, 128, 0.1)"
+  },
+  box1: {
+    padding: 30,
+    display: "flex",
+    flexFlow: "row", 
+    flexWrap: "wrap",
+    justifyContent: "center",
+  },
+  box2: {
+    display: "flex",
+    justifyContent: "center",
   },
   leftCont: {
     display: "flex",
-    width: "50%",
-    fontSize: "3rem"
+    width: "100%",
+    fontSize: "1.7rem"
   },
   logo: {
-    width: 110,
-    height: 110
+    width: "50%",
   },
   mainTitle: {
     color: "white",
-    marginLeft: "10%"
+    margin: 20,
+    width: "100%",
   },
   link: {
     textDecoration: "none",
     color: "white",
-    fontWeight: 1000,
     display: "flex",
+    justifyContent: "center",
     alignItems: "center"
   }
 });

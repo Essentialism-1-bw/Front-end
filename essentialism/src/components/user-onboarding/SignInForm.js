@@ -19,14 +19,10 @@ import { useHistory } from 'react-router-dom'
 const useStyles = makeStyles({
   card: {
     borderRadius: "15px",
-    //   marginTop: "10%",
     width: "100%",
-    //   height: "50vh",
-    padding: 40,
-    paddingTop: 80,
-    paddingBottom: 80,
+    padding: 80,
     display: "flex",
-    justifyContent: "space-evenly",
+    justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
     textAlign: "left"
@@ -54,7 +50,7 @@ const useStyles = makeStyles({
     alignItems: 'center'
   },
   singleField: {
-    width: 470
+    width: 300
   },
   buttonProgress: {
     position: 'absolute',
@@ -82,10 +78,10 @@ const SignInForm = ({isSubmitting}) => {
   
   return (
     <Card className={classes.card}>
-      <div style={{ width: "86%" }}>
+      <div style={{ width: "100%" }}>
         <Typography className={classes.title}>Sign In</Typography>
         <p style={{ fontSize: ".8rem" }}>
-          New User?{" "}
+          New User? {" "}
           <Link to="/signup" className={classes.signup}>
             Create an account
           </Link>
