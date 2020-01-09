@@ -2,13 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { Link } from 'react-router-dom'
 import Card from '@material-ui/core/Card';
-import { Select } from 'formik-material-ui';
-import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles'; 
-import ValuesPopupForm from '../WelcomePageComponents/ValuesPopupForm'
+import ValuesPopupForm from './ValuesPopupForm'
 import Popup from 'reactjs-popup'
 
 const theme = createMuiTheme({

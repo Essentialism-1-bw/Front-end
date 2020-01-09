@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, Fragment} from "react";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -8,7 +8,14 @@ import { Checkbox } from 'formik-material-ui';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import Card from '@material-ui/core/Card';
+import Typography from "@material-ui/core/Typography";
 import Button from '@material-ui/core/Button';
+// import { DatePicker } from "@material-ui/pickers";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles'; 
 import { Link } from 'react-router-dom'
 
@@ -29,7 +36,7 @@ const useStyles = makeStyles(theme => ({
   card: {
     borderRadius: '15px',
     width: "100%",
-    padding: 40,
+    padding: 60,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -38,7 +45,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   signin: {
-    marginTop: 30,
+    marginTop: 10,
     borderRadius: '15px'
   },
   signup: {
@@ -46,34 +53,33 @@ const useStyles = makeStyles(theme => ({
   },
 
   singleField: {
-    width: 470,
-    // '& label.Mui-focused': {
-    //   color: 'gray',
-    // },
-    // '& .MuiInput-underline:after': {
-    //   borderBottomColor: '#7932FF',
-    // },
+    width: "100%",
   },
 
   singleMenu: {
-    width: 470,
+    width: "100%",
   },
 
   duelField: {
     marginRight: theme.spacing(1),
-    width: 230,
+    width: "47%",
   },
 
   duelMenu: {
     marginRight: theme.spacing(1),
-    width: 250,
     marginTop: theme.spacing(2),
+    width: "40%",
   },
 
   triField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 100,
+    width: "25%",
+  },
+  title: {
+    color: "#000",
+    fontSize: "1.4rem",
+    fontWeight: 700
   },
   buttonDiv: {
     display: 'flex',
@@ -84,7 +90,7 @@ const useStyles = makeStyles(theme => ({
 
 
 
-function FormTest({values, errors, touched, status}) {
+function RegisterForm({values, errors, touched, status}) {
 
   const [user, setUser] = useState([]);
 
@@ -96,13 +102,19 @@ function FormTest({values, errors, touched, status}) {
 
     const classes = useStyles();
 
+    // const [selectedDate, handleDateChange] = useState(new Date());
+    const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
+
+    const handleDateChange = date => {
+      setSelectedDate(date);
+    };
+
   return (
     <Card className={classes.card}>
         <Form>
-        <h1>Create an account</h1>
-        <p>Already have an account? <Link to="/login" className={classes.signup}>Sign In</Link> </p>
-        <br/>
-        <br/>
+        {/* <h1>Create an account</h1> */}
+        <Typography className={classes.title}>Create an account</Typography>
+        <p style={{ fontSize: ".8rem" }}>Already have an account? <Link to="/" className={classes.signup}>Sign In</Link> </p>
         <br/>
 
         <ThemeProvider theme={theme}>
@@ -226,6 +238,19 @@ function FormTest({values, errors, touched, status}) {
           }}
         />
           {touched.year}
+          {/* <MuiPickersUtilsProvider>
+          <Fragment>
+            <KeyboardDatePicker
+              clearable
+              value={selectedDate}
+              placeholder="10/10/2018"
+              onChange={date => handleDateChange(date)}
+              minDate={new Date()}
+              format="MM/dd/yyyy"
+            />
+          </Fragment>
+          </MuiPickersUtilsProvider> */}
+          
         <br/>
         <br/>
         <br/>
@@ -278,9 +303,6 @@ function FormTest({values, errors, touched, status}) {
         </Button>
           </div>
         </ThemeProvider>
-        
-        <br/>
-        <br/>
       </Form>
     </Card>
   ); 
@@ -304,8 +326,8 @@ const FormData = withFormik({
     email: Yup
       .string()
       .email()
-      .min(3, "Email is not long enough")
-      .max(50, "Email is too long")
+      // .min(3, "Email is not long enough")
+      // .max(50, "Email is too long")
       .required("Please enter Email addres"),
     firstName: Yup
       .string()
@@ -319,8 +341,7 @@ const FormData = withFormik({
       .required("Please enter Last Name"),
     password: Yup
       .string()
-      .min(8, "Password is too short minimum of 8 characters")
-      .max(10, 'Password is long maximum of 10 characters')
+      .min(8, "Password is too short, must be at least 8 characters long")
       .required("Please enter your password"),
       month: Yup
       .string()
@@ -351,6 +372,6 @@ const FormData = withFormik({
         console.log('Error', err.response);
       });
   }
-})(FormTest);
+})(RegisterForm);
 
 export default FormData;

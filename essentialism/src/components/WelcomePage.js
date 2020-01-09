@@ -4,7 +4,7 @@ import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/sty
 import Button from '@material-ui/core/Button';
 import Values from './WelcomePageComponents/Values/Values'
 import Description from './WelcomePageComponents/Description'
-import ProjectsPopup from './WelcomePageComponents/ProjectsPopup'
+import ProjectsPopup from './WelcomePageComponents/Projects/ProjectsPopup'
 import Popup from 'reactjs-popup'
 
 const useStyles = makeStyles({

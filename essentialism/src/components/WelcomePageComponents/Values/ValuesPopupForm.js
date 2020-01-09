@@ -2,14 +2,12 @@ import React, {useState, useEffect} from "react";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { TextField } from 'formik-material-ui';
 import { Select } from 'formik-material-ui';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import { makeStyles, createMuiTheme, ThemeProvider, withTheme } from '@material-ui/core/styles'; 
-import ProjectsPopup from "./ProjectsPopup";
 
 
 const theme = createMuiTheme({
@@ -164,51 +162,51 @@ const AddTopThreeForm = ({ status, topThree, values, addValue, removeValue, rese
 
   return (
       <Form className={classes.root}>
-              <ThemeProvider theme={theme}>
-              <div className={classes.menuDiv}>  
-                <Field
-                  type="Top3valueIteam" 
-                  name="Top3valueIteam" 
-                  placeholder="Value" 
-                  color="primary"
-                  component={Select}
-                  className={classes.duelMenu}
-                >
-                  {topThree.map(valueList => (
-                  <MenuItem 
-                    id={valueList.valueIteam}
-                    value={valueList.valueIteam}
-                  >
-                    {valueList.valueIteam}
-                  </MenuItem>
-                  ))}
-                </Field>
-              </div>  
+        <ThemeProvider theme={theme}>
+        <div className={classes.menuDiv}>  
+          <Field
+            type="Top3valueIteam" 
+            name="Top3valueIteam" 
+            placeholder="Value" 
+            color="primary"
+            component={Select}
+            className={classes.duelMenu}
+          >
+            {topThree.map(valueList => (
+            <MenuItem 
+              id={valueList.valueIteam}
+              value={valueList.valueIteam}
+            >
+              {valueList.valueIteam}
+            </MenuItem>
+            ))}
+          </Field>
+        </div>  
 
-              <div className={classes.buttonDiv}>
-                <Button 
-                  className={classes.mainButton}
-                  type="submit" 
-                  name="submit" 
-                  variant="contained"
-                  color="primary"
-                >
-                  Add Values
-                </Button>
+        <div className={classes.buttonDiv}>
+          <Button 
+            className={classes.mainButton}
+            type="submit" 
+            name="submit" 
+            variant="contained"
+            color="primary"
+          >
+            Add Values
+          </Button>
 
-                <Button 
-                  className={classes.mainButton}
-                  type="reset" 
-                  name="submit" 
-                  variant="contained"
-                  color="secondary"
-                  onClick={() => resetValues()}
-                >
-                  Remove All
-                </Button>
-              </div>
-              </ThemeProvider>
-              </Form>
+          <Button 
+            className={classes.mainButton}
+            type="reset" 
+            name="submit" 
+            variant="contained"
+            color="secondary"
+            onClick={() => resetValues()}
+          >
+            Remove All
+          </Button>
+        </div>
+        </ThemeProvider>
+      </Form>
   )
 }
 
