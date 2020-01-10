@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { withFormik, Form, Field } from "formik";
-import * as Yup from "yup";
-import axios from "axios";
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
-import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles'; 
-import Popup from 'reactjs-popup'
+import { makeStyles, createMuiTheme } from '@material-ui/core/styles'; 
 
 const theme = createMuiTheme({
   palette: {
@@ -238,33 +234,33 @@ const Top3FormFiled = ({ values, resetValues, removeValue, close }) => {
   )
 }
 
-const ValueForm = withFormik({
+// const ValueForm = withFormik({
   
-  mapPropsToValues({Top3valueIteam}) {
-    return {
-      Top3valueIteam: Top3valueIteam || "", 
-    };
-  },
+//   mapPropsToValues({Top3valueIteam}) {
+//     return {
+//       Top3valueIteam: Top3valueIteam || "", 
+//     };
+//   },
 
-  validationSchema: Yup.object().shape({
-    Top3valueIteam: Yup
-    .string()
-    .required(),
-  }),
+//   validationSchema: Yup.object().shape({
+//     Top3valueIteam: Yup
+//     .string()
+//     .required(),
+//   }),
 
-  handleSubmit(values, { resetForm, setStatus, setSubmitting }) {
-    axios
-      .post("https://reqres.in/api/users", values)
-      .then(response => {
-        setStatus(response.data);
-        resetForm();
-        setSubmitting(false)
-      })
-      .catch(err => {
-        console.log('Error', err.response);
-        setSubmitting(false)
-      });
-  }
-})(Top3FormFiled);
+//   handleSubmit(values, { resetForm, setStatus, setSubmitting }) {
+//     axios
+//       .post("https://reqres.in/api/users", values)
+//       .then(response => {
+//         setStatus(response.data);
+//         resetForm();
+//         setSubmitting(false)
+//       })
+//       .catch(err => {
+//         console.log('Error', err.response);
+//         setSubmitting(false)
+//       });
+//   }
+// })(Top3FormFiled);
 
 export default Top3FormFiled

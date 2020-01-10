@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from "react";
-import { withFormik, Form, Field } from "formik";
+import { withFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
-import { makeStyles, createMuiTheme, ThemeProvider, withTheme } from '@material-ui/core/styles'; 
+import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles'; 
 import DataValueForm from './DataValueForm'
 import ValuesPopup from '../ValuesPopup'
 import Popup from 'reactjs-popup'
@@ -139,6 +139,16 @@ const ValueFiled = (props) => {
           setCurrentValues(res.data)
         })
         .catch(error => console.log(`Error: ${error}`)); 
+
+        if(currentValues.length < 5) {
+                setSubmitStatus(false)
+                setErrorText("Must have at least 5 values.")
+            } else if(currentValues.length > 5) {
+                setSubmitStatus(false)
+                setErrorText("No more than 5 values.")
+            } else {
+                setSubmitStatus(true)
+            }
     }
  
     fetchValues();
@@ -152,7 +162,7 @@ const ValueFiled = (props) => {
     // } else {
     //   setSubmitStatus(true)
     // } 
-  }, [user_id]);
+  }, [user_id, currentValues.length]);
 
 // -------------- Varable declaration useEffect & Axios call to backend End --------------- //
 
@@ -215,7 +225,6 @@ const ValueFiled = (props) => {
             {currentValues !== undefined ? currentValues.map(value => {
               return (
                 <Card className={classes.valueList} key={value.value_id}>
-                  {console.log(value)}
                   <div className={classes.valueiteam}>
                     <p>{value.value_name}</p>
                   </div>

@@ -1,7 +1,6 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import Card from '@material-ui/core/Card';
-import Button from '@material-ui/core/Button';
-import { makeStyles, createMuiTheme, ThemeProvider, withTheme } from '@material-ui/core/styles'; 
+import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles'; 
 
 
 const theme = createMuiTheme({

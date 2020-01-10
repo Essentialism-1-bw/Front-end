@@ -111,7 +111,6 @@ const ProjectsPopup = ({ close }) => {
             </Card>
             <ThemeProvider theme={theme}>
                 <div style={{width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
-                    {console.log(projects)}
                     <h2>Current Projects:</h2>
                     {projects !== undefined ? projects.map(project => {
                         return <Card className={classes.projectCard} key={project.id}>
