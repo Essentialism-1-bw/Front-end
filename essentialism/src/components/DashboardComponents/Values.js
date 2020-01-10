@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 
-import axios from 'axios'
-
 import { makeStyles } from '@material-ui/core/styles';
+
+
+import { axiosWithAuth } from '../../Authentication/axiosWithAuth'
 
 const useStyles = makeStyles({
     value: {
@@ -19,10 +20,8 @@ const Values = () => {
     const classes = useStyles();
 
     useEffect(() => {
-        // axios.get('https://bw-essentialism.herokuapp.com/api/users/1/values')
-        //     .then(res => console.log(res))
-        //     .catch(err => console.log(err))
-        axios.get('./dummyData/dummyValues.json')
+        const user_id = localStorage.getItem("user_id")
+        axiosWithAuth().get(`/api/users/${user_id}/values`)
             .then(res => setValues(res.data))
             .catch(err => console.log(err))
     }, [])
