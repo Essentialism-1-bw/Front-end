@@ -11,7 +11,6 @@ import { Route } from "react-router-dom";
 import PrivateRoute from "./Authentication/PrivateRoute";
 
 import AnimatedSwitch from './components/AnimatedSwitch'
-import AnimatedRoute from './components/AnimatedRoute'
 
 function App() {
   return (

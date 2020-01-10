@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Projects from './DashboardComponents/Projects'
 
 import { makeStyles } from '@material-ui/core/styles';
+import { axiosWithAuth } from '../Authentication/axiosWithAuth'
 
 const useStyles = makeStyles({
     mainTitle: {
@@ -22,8 +23,13 @@ const useStyles = makeStyles({
 
 const Dashboard = () => {
     const classes = useStyles();
-
-   let name = "Dustin";
+    const [user, setUser] = useState({})
+    useEffect(() => {
+        const user_id = localStorage.getItem('user_id')
+        axiosWithAuth().get(`/api/users/${user_id}`)
+            .then(res => setUser(res.data))
+    },[])
+   let name = user.firstName;
     return (
         <div>
             <div style={{ height: '100vh' }}>

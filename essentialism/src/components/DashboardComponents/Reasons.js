@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 
-import axios from 'axios'
 
 import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/core/styles'; 
+import { axiosWithAuth } from '../../Authentication/axiosWithAuth';
 
 const useStyles = makeStyles({
     card: {
@@ -16,20 +16,20 @@ const useStyles = makeStyles({
 
 const Reasons = () => {
     const classes = useStyles()
-    const [ reasons, setReasons ] = useState([])
+    const [ reason, setReason ] = useState({})
+
 
     useEffect(() => {
-        axios.get('./dummyData/dummyReasons.json')
-            .then(res => setReasons(res.data))
+        const user_id = localStorage.getItem("user_id")
+        axiosWithAuth().get(`/api/users/${user_id}/reasons`)
+            .then(res => setReason(res.data))
             .catch(err => console.log(err))
     }, [])
     return (
         <div>
-            {reasons.map(reason => {
-                return <Card className={classes.card} key={reason.id}>
-                    <p>{reason.reason}</p>
-                </Card>
-            })}
+            <Card className={classes.card} key={reason.id}>
+                <p>{reason.reason}</p>
+            </Card>
         </div>
     )
 }

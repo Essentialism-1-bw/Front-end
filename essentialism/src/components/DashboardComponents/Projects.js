@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 
-import axios from 'axios'
 import Values from './Values';
 import Reasons from './Reasons';
 
@@ -13,6 +12,8 @@ import EditProjectsPopup from './EditProjectsPopup'
 
 import Popup from 'reactjs-popup'
 
+import { axiosWithAuth } from '../../Authentication/axiosWithAuth'
+ 
 const useStyles = makeStyles({
     project: {
         display: 'flex',
@@ -54,16 +55,17 @@ const Projects = () => {
     const [projects, setProjects] = useState([]);
 
     const classes = useStyles();
-
+    const user_id = localStorage.getItem("user_id")
     useEffect(() => {
-        axios.get('./dummyData/dummyProjects.json')
+        axiosWithAuth().get(`/api/users/${user_id}/projects`)
             .then(res => setProjects(res.data))
             .catch(err => console.log(err))
-    }, [])
+    }, [user_id])
 
     const deleteProject = (id) => {
        let newProjects =  projects.filter(project => project.id !== id)
        setProjects(newProjects)
+       axiosWithAuth().delete(`/api/users/${user_id}/projects/${id}`)
     }
     return (
         <div>

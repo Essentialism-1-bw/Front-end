@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles'; 
-import { Link } from 'react-router-dom'
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 
 
 import EditProjectsForm from './EditProjectsForm'
+import { axiosWithAuth } from '../../Authentication/axiosWithAuth';
 
 const theme = createMuiTheme({
     palette: {
@@ -89,8 +89,11 @@ const ProjectsPopup = ({ close, projects, setProjects, deleteProject }) => {
             setSubmitStatus(true)
         }
     }, [projects.length])
+    const user_id = localStorage.getItem("user_id")
     const addProject = (project) => {
         setProjects([...projects, project])
+        console.log(project)
+        axiosWithAuth().post(`/api/users/${user_id}/projects`, { name: project.name })
     }
 
     const classes = useStyles()
