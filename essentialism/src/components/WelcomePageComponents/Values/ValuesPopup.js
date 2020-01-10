@@ -5,7 +5,6 @@ import axios from "axios";
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles'; 
-import ValuesPopupForm from './ValuesPopupForm'
 import Popup from 'reactjs-popup'
 
 const theme = createMuiTheme({
@@ -25,8 +24,7 @@ const useStyles = makeStyles({
     justifyContent: 'flex-start', 
     alignItems: 'center', 
     flexDirection: 'column', 
-    overflowY: 'auto', 
-    // width: '100vw', 
+    overflowY: 'auto',  
     height: '85vh', 
     padding: "2%"
   },
@@ -175,11 +173,9 @@ const Top3FormFiled = ({ values, resetValues, close }) => {
   return (
       <div className={classes.popup}>
           <button className={classes.close} style={{ zIndex: '000' }} onClick={close}>&times;</button>
-          <h3 className={classes.mainTitle}>2. Now select your top 3 favorite values from the 5 you choes previously by removing 2 values</h3>
+          <h3 className={classes.mainTitle}>Now select your top 3 favorite values from the 5 you choes previously by removing 2 values</h3>
           <Card className={classes.card}>
               <h4 className={classes.centerText}>Remove 2 values for your top 5 values:</h4> 
-              {/* <ValuesPopupForm addValue={addValue} topThree={topThree} values={values} resetValues={resetValues}/> */}
-
               <h1 className={classes.centerText}>Your top 3 values:</h1>  
             {topThree !== undefined ? topThree.map(topThree => {
               return (
@@ -217,13 +213,11 @@ const Top3FormFiled = ({ values, resetValues, close }) => {
                           Submit
                           </Button>
                       }
-                  // modal 
                   closeOnDocumentClick={true} 
-                  // style={{ width: '100vw', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                   >
                       {close => {
                       return (
-                      <div>Awesome choice</div>
+                      <div>Awesome choice! Now click the X at the top of the page and scroll to the description section</div>
                       )
                       }}
                   </Popup>

@@ -6,8 +6,11 @@ import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import { makeStyles, createMuiTheme, ThemeProvider, withTheme } from '@material-ui/core/styles'; 
 import ValueForm from './ValueForm'
-import ValuesPopup from './ValuesPopup'
+import ValuesPopup from '../ValuesPopup'
 import Popup from 'reactjs-popup'
+
+// ------------- Styling Start -------------- //
+// ========================================== //
 
 const theme = createMuiTheme({
   palette: {
@@ -78,9 +81,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-
+// ========================================== //
+// -------------- Styling End --------------- //
 
 const ValueFiled = () => {
+
+  // -------------- Varable declaration useEffect & Axios call to backend Start --------------- //
+
+  const [dummyValues, setDummyValues] = useState([]);
 
   const [values, setValues] = useState([]); 
 
@@ -90,6 +98,12 @@ const ValueFiled = () => {
  
 
   useEffect(() => {
+
+    axios.get('./dummyData/dummyValues.json')
+            .then(res => setDummyValues(res.data))
+            .catch(err => console.log(err))
+            console.log(dummyValues)
+
     if(values.length < 5) {
         setSubmitStatus(false)
         setErrorText("Must have at least 5 values.")
@@ -100,6 +114,11 @@ const ValueFiled = () => {
         setSubmitStatus(true)
     }
   }, [values.length])
+
+  // -------------- Varable declaration useEffect & Axios call to backend End --------------- //
+
+
+  // -------------- Add Remove Reset Functions Start --------------- //
 
   const addValue = (value) => {
     setValues([...values, value])
@@ -116,12 +135,13 @@ const ValueFiled = () => {
     setValues(newValues)
   }
 
+// -------------- Add Remove Reset Functions End --------------- //
 
     const classes = useStyles();
 
   return (
     <div className={classes.mainroot}>
-      <h2 className={classes.mainTitle}>1. The first step is to select your 5 favorite values</h2>
+      <h2 className={classes.mainTitle}>The first step is to select your 5 favorite values</h2>
       <Card className={classes.card}>
         <ValueForm addValue={addValue} values={values} resetValues={resetValues}/>
 
