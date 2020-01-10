@@ -66,24 +66,26 @@ const Reagister = props => {
   // };
 
   return (
-    <div className="BannerBG1">
-      <div className={classes.banner}>
-        <div className={classes.box1}>
-          <div className={classes.leftCont}>
-            <Link className={classes.link} to="/">
-              <img
-                className={classes.logo}
-                src={require("../img/logo.png")}
-                alt="logo"
-              />
-            </Link>
-            <Link className={classes.link} to="/">
-              <h1 className={classes.mainTitle}>Essentialism</h1>
-            </Link>
+    <div>
+      <div className="BannerBG1">
+        <div className={classes.banner}>
+          <div className={classes.box1}>
+            <div className={classes.leftCont}>
+              <Link className={classes.link} to="/">
+                <img
+                  className={classes.logo}
+                  src={require("../img/logo.png")}
+                  alt="logo"
+                />
+              </Link>
+              <Link className={classes.link} to="/">
+                <h1 className={classes.mainTitle}>Essentialism</h1>
+              </Link>
+            </div>
           </div>
-        </div>
-        <div className={classes.box2}>
-          <ReagisterForm />
+          <div className={classes.box2}>
+            <ReagisterForm />
+          </div>
         </div>
       </div>
     </div>

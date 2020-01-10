@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     alignItems: "center",
     backgroundColor: "black",
     padding: 10,
-    position: "sticky",
+    position: "fixed",
     top: 0,
     zIndex: 999
   },

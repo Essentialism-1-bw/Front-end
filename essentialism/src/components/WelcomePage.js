@@ -88,11 +88,13 @@ const WelcomePage = (props) => {
     const classes = useStyles();
 
     return (
-        <div className="BannerBG5">
-            <div className={classes.banner}>
-                <div className={classes.centerCont}>
-                    <h1 className={classes.mainTitle}>Hello John Doe</h1>
-                    <p className={classes.body}>Regain control of your own choices about where to spend your time and energy instead of giving others implicit permission to choose for you.</p>
+        <div >
+            <div className="BannerBG5">
+                <div className={classes.banner}>
+                    <div className={classes.centerCont}>
+                        <h1 className={classes.mainTitle}>Hello John Doe</h1>
+                        <p className={classes.body}>Regain control of your own choices about where to spend your time and energy instead of giving others implicit permission to choose for you.</p>
+                    </div>
                 </div>
             </div>
             <div className={classes.reactApp}>
