@@ -152,7 +152,7 @@ const ValueFiled = (props) => {
     // } else {
     //   setSubmitStatus(true)
     // } 
-  }, []);
+  }, [user_id]);
 
 // -------------- Varable declaration useEffect & Axios call to backend End --------------- //
 
@@ -184,7 +184,7 @@ const ValueFiled = (props) => {
   const resetValues = () => {
     setCurrentValues([])
     currentValues.map(value => {
-      axiosWithAuth().delete(`/api/users/${user_id}/values/${value.value_id}`)
+     return axiosWithAuth().delete(`/api/users/${user_id}/values/${value.value_id}`)
     })
   }
 
@@ -254,7 +254,7 @@ const ValueFiled = (props) => {
                   >
                       {close => {
                       return (
-                      <ValuesPopup dataValues={dataValues} addValue={addValue} resetValues={resetValues} removeValue={removeValue} close={close}/>
+                      <ValuesPopup values={currentValues} addValue={addValue} resetValues={resetValues} removeValue={removeValue} close={close}/>
                       )
                       }}
                   </Popup>

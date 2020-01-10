@@ -36,10 +36,10 @@ const useStyles = makeStyles({
       paddingBottom: 80,
       display: "flex",
       flexDirection: "column",
-      flexWrap: 'wrap',
       justifyContent: "space-evenly",
       alignItems: "center",
       background: '#F8F8F8',
+      overflowY: "scroll"
     },
     root: {
       width: '100%',
@@ -132,76 +132,83 @@ const useStyles = makeStyles({
   centerText: {
     textAlign: 'center',
   },
+  allValues: {
+    display: 'flex',
+    flexDirection: 'column'
+  }
 })
 
 
 
-const Top3FormFiled = ({ values, resetValues, close }) => {
+const Top3FormFiled = ({ values, resetValues, removeValue, close }) => {
 
-  const [topThree, setTopThree] = useState(values)
-  console.log(topThree);
+  // const [topThree, setTopThree] = useState(values)
+  // console.log(topThree);
 
   const [submitStatus, setSubmitStatus] = useState(true)
 
   const [errorText, setErrorText] = useState('')
 
   useEffect(() => {
-      if(topThree.length < 3) {
+      if(values.length < 3) {
           setSubmitStatus(false)
           setErrorText("Must have at least 3 values.")
-      } else if(topThree.length > 3) {
+      } else if(values.length > 3) {
           setSubmitStatus(false)
           setErrorText("No more than 3 values.")
       } else {
           setSubmitStatus(true)
       }
-  }, [topThree.length])
+  }, [values.length])
 
-  const addValue = (value) => {
-    setTopThree([...topThree, value])
-  }
+  // const addValue = (value) => {
+  //   setTopThree([...topThree, value])
+  // }
 
-  const removeValue = (id) => {
-    let newTop3Values = topThree.filter(value => {
-      return value.id !== id;
-    })
-    setTopThree(newTop3Values)
-  }
+  // const removeValue = (id) => {
+  //   let newTop3Values = topThree.filter(value => {
+  //     return value.id !== id;
+  //   })
+  //   setTopThree(newTop3Values)
+  // }
 
   const classes = useStyles()
 
   return (
       <div className={classes.popup}>
           <button className={classes.close} style={{ zIndex: '000' }} onClick={close}>&times;</button>
-          <h3 className={classes.mainTitle}>Now select your top 3 favorite values from the 5 you choes previously by removing 2 values</h3>
+          <h3 className={classes.mainTitle}>Now select your top 3 favorite values from the 5 you chose previously by removing 2 values</h3>
           <Card className={classes.card}>
               <h4 className={classes.centerText}>Remove 2 values for your top 5 values:</h4> 
               <h1 className={classes.centerText}>Your top 3 values:</h1>  
-            {topThree !== undefined ? topThree.map(topThree => {
-              return (
-                <Card className={classes.valueList} key={topThree.id}>
-                <div className={classes.valueiteam}>
-                  <p>{topThree.valueIteam}</p>
-                </div>
-                <div className={classes.buttonDiv}>
-                  <Button 
-                    className={classes.remove}
-                    name="remove" 
-                    variant="contained"
-                    color="secondary"
-                    onClick={() => removeValue(topThree.id)}
-                    >
-                    &times;
-                  </Button>
-                </div> 
-              </Card>
-              )
-            }): null}
+              <div className={classes.allValues}>
+                {values !== undefined ? values.map(topThree => {
+                  return (
+                    <Card className={classes.valueList} key={topThree.value_id}>
+                    <div className={classes.valueiteam}>
+                      <p>{topThree.value_name}</p>
+                    </div>
+                    <div className={classes.buttonDiv}>
+                      <Button 
+                        className={classes.remove}
+                        name="remove" 
+                        variant="contained"
+                        color="secondary"
+                        onClick={() => removeValue(topThree.value_id)}
+                        >
+                        &times;
+                      </Button>
+                    </div> 
+                  </Card>
+                  )
+                }): null}
+            </div>
 
         <div style={{margin: '3%'}}>
           {submitStatus === true ? 
             <div>
-              <ThemeProvider theme={theme}>
+              <div>Awesome choices! Now click the X at the top of the page and scroll to the description section</div>
+              {/* <ThemeProvider theme={theme}>
                   <Popup 
                       trigger={
                           <Button 
@@ -217,11 +224,11 @@ const Top3FormFiled = ({ values, resetValues, close }) => {
                   >
                       {close => {
                       return (
-                      <div>Awesome choice! Now click the X at the top of the page and scroll to the description section</div>
+                      <div>Awesome choices! Now click the X at the top of the page and scroll to the description section</div>
                       )
                       }}
                   </Popup>
-              </ThemeProvider>
+              </ThemeProvider> */}
             </div>  
             : errorText}
           </div>
