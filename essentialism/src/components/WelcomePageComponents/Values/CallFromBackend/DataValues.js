@@ -8,6 +8,7 @@ import { makeStyles, createMuiTheme, ThemeProvider, withTheme } from '@material-
 import DataValueForm from './DataValueForm'
 import ValuesPopup from '../ValuesPopup'
 import Popup from 'reactjs-popup'
+import { axiosWithAuth } from '../../../../Authentication/axiosWithAuth'
 
 // ------------- Styling Start -------------- //
 // ========================================== //
@@ -91,6 +92,8 @@ const ValueFiled = (props) => {
 
   const [dataValues, setDataValues] = useState(); 
 
+  const [currentValues, setCurrentValues] = useState([])
+
   const [submitStatus, setSubmitStatus] = useState(true)
 
   const [errorText, setErrorText] = useState('')
@@ -119,38 +122,64 @@ const ValueFiled = (props) => {
   //   }
   // }, [dataValues.length])
 
+  const user_id = localStorage.getItem("user_id")
+
   useEffect(() => {
     // Axios call to backend data 
-    axios
-    .get(`https://bw-essentialism.herokuapp.com/api/values/`)
-    .then(response => {
-      setDataValues(response.data)
-    })
-    .catch(error => console.log(`Error: ${error}`)); 
+    async function fetchValues() {
+      axios
+      .get(`https://bw-essentialism.herokuapp.com/api/values/`)
+      .then(response => {
+        setDataValues(response.data);
+      })
+      .catch(error => console.log(`Error: ${error}`)); 
 
+      axiosWithAuth().get(`/api/users/${user_id}/values`)
+        .then(res => {
+          setCurrentValues(res.data)
+        })
+        .catch(error => console.log(`Error: ${error}`)); 
+    }
+ 
+    fetchValues();
     // Data validation maximum 5 values
-    if(dataValues.length < 5) {
-      setSubmitStatus(false)
-      setErrorText("Must have at least 5 values.")
-    } else if(dataValues.length > 5) {
-      setSubmitStatus(false)
-      setErrorText("No more than 5 values.")
-    } else {
-      setSubmitStatus(true)
-    } 
-  }, [dataValues.length]);
+    // if(dataValues.length < 5) {
+    //   setSubmitStatus(false)
+    //   setErrorText("Must have at least 5 values.")
+    // } else if(dataValues.length > 5) {
+    //   setSubmitStatus(false)
+    //   setErrorText("No more than 5 values.")
+    // } else {
+    //   setSubmitStatus(true)
+    // } 
+  }, []);
 
 // -------------- Varable declaration useEffect & Axios call to backend End --------------- //
 
 
 // -------------- Add Remove Reset Functions Start --------------- //
 
+
+
   const addValue = (value) => {
-    setDataValues([...dataValues, value])
+    // if(dataValues.length < 5) {
+    //   setSubmitStatus(false)
+    //   setErrorText("Must have at least 5 values.")
+    // } else if(dataValues.length > 5) {
+    //   setSubmitStatus(false)
+    //   setErrorText("No more than 5 values.")
+    // } else {
+    //   setSubmitStatus(true)
+    // } 
+    
+    setCurrentValues([...currentValues, value])
+    axiosWithAuth().post(`/api/users/${user_id}/values`, {
+      value_id: value.id
+    })
   }
 
   const resetValues = () => {
-    setDataValues([])
+    setCurrentValues([])
   }
 
   const removeValue = (id) => {
@@ -176,11 +205,12 @@ const ValueFiled = (props) => {
 
         <ThemeProvider theme={theme}>
           <div>
-            {dataValues !== undefined ? dataValues.map(value => {
+            {currentValues !== undefined ? currentValues.map(value => {
               return (
-                <Card className={classes.valueList} key={dataValues.id}>
+                <Card className={classes.valueList} key={value.id}>
+                  {console.log(value)}
                   <div className={classes.valueiteam}>
-                    <p>{value.valueIteam}</p>
+                    <p>{value.value_name}</p>
                   </div>
                   <div className={classes.buttonDiv}>
                     <Button 
