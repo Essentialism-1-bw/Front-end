@@ -1,9 +1,7 @@
-import React, { useState, createElement } from "react";
+import React from "react";
 import SignInForm from "./SignInForm";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import { axiosWithAuth } from "../../Authentication/axiosWithAuth";
-import axios from "axios";
 
 const useStyles = makeStyles({
   banner: {
@@ -51,29 +49,6 @@ const useStyles = makeStyles({
 });
 
 const SignIn = props => {
-  const [credentials, setCredentials] = useState({
-    username: "",
-    password: ""
-  });
-
-  const handleChange = e => {
-    setCredentials({
-      ...credentials,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const login = e => {
-    e.preventDefault();
-    axios
-      .post("/auth/login", credentials)
-      .then(res => {
-        localStorage.setItem("token", res.data.token);
-        localStorage.setItem("user_id", res.data.user_id);
-        console.log(res.data);
-      })
-      .catch(err => console.log(err));
-  };
 
   const classes = useStyles();
 

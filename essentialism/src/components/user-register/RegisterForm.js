@@ -4,7 +4,6 @@ import * as Yup from "yup";
 import axios from "axios";
 import { TextField } from 'formik-material-ui';
 import { Select } from 'formik-material-ui';
-import { Checkbox } from 'formik-material-ui';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import Card from '@material-ui/core/Card';
@@ -13,11 +12,11 @@ import Button from '@material-ui/core/Button';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles'; 
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+import moment from 'moment'
 
 
 const theme = createMuiTheme({
@@ -90,23 +89,29 @@ const useStyles = makeStyles(theme => ({
 
 
 
-function RegisterForm({values, errors, touched, status}) {
+function RegisterForm({values, errors, touched, status, setValues}) {
 
   const [user, setUser] = useState([]);
-
     useEffect(() =>{
         if (status) {
             setUser([...user, status])
         }
-    }, [status]);
+    }, [status, user]);
 
     const classes = useStyles();
 
-    const [selectedDate, setSelectedDate] = React.useState(new Date());
+    let todayDate = moment(Date.now()).format('YYYY-MM-DD');
 
+    const [selectedDate, setSelectedDate] = React.useState(todayDate);
     const handleDateChange = date => {
-      setSelectedDate(date);
+      let newDate = moment(date).format('YYYY-MM-DD')
+      setValues({
+        ...values,
+        dateOfBirth: newDate
+      })
+      setSelectedDate(newDate);
     };
+  
 
   return (
     <Card className={classes.card}>
@@ -239,7 +244,7 @@ function RegisterForm({values, errors, touched, status}) {
         <Fragment>
             <KeyboardDatePicker
               clearable
-              name="Date of Birth"
+              name="dateOfBirth"
               className={classes.singleMenu}
               value={selectedDate}
               placeholder="10/10/2018"
@@ -260,13 +265,13 @@ function RegisterForm({values, errors, touched, status}) {
         </InputLabel>
         <Field 
           type="country" 
-          name="country" 
+          name="countryRegion" 
           placeholder="country"
           color="primary" 
           component={Select}
           className={classes.singleMenu}
         >
-            <MenuItem value="" disabled>Choose a Country</MenuItem>
+            <MenuItem value="disabled" disabled>Choose a Country</MenuItem>
             <MenuItem value={'United States'}>United States</MenuItem>
             <MenuItem value={'Canada'}>Canada</MenuItem>
             <MenuItem value={'Mexico'}>Mexico</MenuItem>
@@ -277,7 +282,7 @@ function RegisterForm({values, errors, touched, status}) {
         <br/>
         <br/>
         <br/>
-        <InputLabel shrink id="month">
+        {/* <InputLabel shrink id="month">
           I Agree to Terms of Service
         </InputLabel>
         <Field 
@@ -287,7 +292,7 @@ function RegisterForm({values, errors, touched, status}) {
           label="I Agree to Terms of Service" 
           component={Checkbox} 
         />
-          {touched.terms}
+          {touched.terms} */}
         <br/>
         <br/>
 
@@ -308,68 +313,133 @@ function RegisterForm({values, errors, touched, status}) {
   ); 
 }
 
-const FormData = withFormik({
-  mapPropsToValues({firstName, lastName, email, password, month, day, year, terms}) {
-    return {
-      firstName: firstName || "",
-      lastName: lastName || "",
-      email: email || "",
-      password: password || "",
-      month: month || "", 
-      day: day || "",
-      year: year || "", 
-      terms: terms || false
-    };
-  },
 
-  validationSchema: Yup.object().shape({
-    email: Yup
-      .string()
-      .email()
-      .required("Please enter Email addres"),
-    firstName: Yup
-      .string()
-      .min(3, "First name is too short")
-      .max(10, "First name is too long")
-      .required("Please enter First Name"),
-    lastName: Yup
-      .string()
-      .min(3, "Last name is too short")
-      .max(10, "Last name is too long")
-      .required("Please enter Last Name"),
-    password: Yup
-      .string()
-      .min(8, "Password is too short, must be at least 8 characters long")
-      .required("Please enter your password"),
-      month: Yup
-      .string()
-      .required("Please select a month"),
-      day: Yup
-      .number()
-      .max(31)
-      .required("Please enter date"),
-      year: Yup
-      .number()
-      .max(2020)
-      .required("Please enter year"),
-      country: Yup
-      .string()
-      .required("Please select a country"),
-      terms: Yup.boolean()
-  }),
+// const FormData = withFormik({
+//   mapPropsToValues({firstName, lastName, email, password, month, day, year, terms}) {
+//     return {
+//       firstName: firstName || "",
+//       lastName: lastName || "",
+//       email: email || "",
+//       password: password || "",
+//       month: month || "", 
+//       day: day || "",
+//       year: year || "", 
+//       terms: terms || false
+//     };
+//   },
 
-  handleSubmit(values, {setStatus, resetForm}) {
-    axios
-      .post("https://reqres.in/api/users", values)
-      .then(response => {
-        console.log(response);
-        setStatus(response.data);
-        resetForm();
-      })
-      .catch(err => {
-        console.log('Error', err.response);
-      });
+//   validationSchema: Yup.object().shape({
+//     email: Yup
+//       .string()
+//       .email()
+//       .required("Please enter Email addres"),
+//     firstName: Yup
+//       .string()
+//       .min(3, "First name is too short")
+//       .max(10, "First name is too long")
+//       .required("Please enter First Name"),
+//     lastName: Yup
+//       .string()
+//       .min(3, "Last name is too short")
+//       .max(10, "Last name is too long")
+//       .required("Please enter Last Name"),
+//     password: Yup
+//       .string()
+//       .min(8, "Password is too short, must be at least 8 characters long")
+//       .required("Please enter your password"),
+//       month: Yup
+//       .string()
+//       .required("Please select a month"),
+//       day: Yup
+//       .number()
+//       .max(31)
+//       .required("Please enter date"),
+//       year: Yup
+//       .number()
+//       .max(2020)
+//       .required("Please enter year"),
+//       country: Yup
+//       .string()
+//       .required("Please select a country"),
+//       terms: Yup.boolean()
+//   }),
+
+//   handleSubmit(values, {setStatus, resetForm}) {
+//     axios
+//       .post("https://reqres.in/api/users", values)
+//       .then(response => {
+//         console.log(response);
+//         setStatus(response.data);
+//         resetForm();
+//       })
+//       .catch(err => {
+//         console.log('Error', err.response);
+//       });
+//   }
+// })(RegisterForm);
+
+const CreateForm = () => {
+
+  const history = useHistory()
+ 
+  const goSignIn = () => {
+    history.push('/')
   }
-})(RegisterForm);
 
-export default FormData;
+  const FormData = withFormik({
+    mapPropsToValues({firstName, lastName, email, password}) {
+      return {
+        firstName: firstName || "",
+        lastName: lastName || "",
+        email: email || "",
+        password: password || ""
+      };
+    },
+  
+    validationSchema: Yup.object().shape({
+      email: Yup
+        .string()
+        .email()
+        .required("Please enter Email addres"),
+      firstName: Yup
+        .string()
+        .min(3, "First name is too short")
+        .max(10, "First name is too long")
+        .required("Please enter First Name"),
+      lastName: Yup
+        .string()
+        .min(3, "Last name is too short")
+        .max(10, "Last name is too long")
+        .required("Please enter Last Name"),
+      password: Yup
+        .string()
+        .min(8, "Password is too short, must be at least 8 characters long")
+        .required("Please enter your password"),
+      countryRegion: Yup
+        .string()
+        .required("Please select a country"),
+      dateOfBirth: Yup
+        .string()
+        .required()
+    }),
+  
+    handleSubmit(values, {setStatus, resetForm, setValues}) {
+      axios
+        .post("https://bw-essentialism.herokuapp.com/api/auth/register", values)
+        .then(response => {
+          console.log(response);
+          setStatus(response.data);
+          resetForm();
+          goSignIn();
+        })
+        .catch(err => {
+          console.log('Error', err.response);
+        });
+    }
+  })(RegisterForm);
+
+  return <FormData/>
+}
+
+
+export default CreateForm;
