@@ -171,22 +171,29 @@ const ValueFiled = (props) => {
     // } else {
     //   setSubmitStatus(true)
     // } 
-    
-    setCurrentValues([...currentValues, value])
+    let newValue = {
+      value_id: value.id,
+      value_name: value.name
+    }
+    setCurrentValues([...currentValues, newValue])
     axiosWithAuth().post(`/api/users/${user_id}/values`, {
-      value_id: value.id
+      value_id: newValue.value_id
     })
   }
 
   const resetValues = () => {
     setCurrentValues([])
+    currentValues.map(value => {
+      axiosWithAuth().delete(`/api/users/${user_id}/values/${value.value_id}`)
+    })
   }
 
   const removeValue = (id) => {
-    let newValues = dataValues.filter(value => {
-      return value.id !== id;
+    let newValues = currentValues.filter(value => {
+      return value.value_id !== id;
     })
-    setDataValues(newValues)
+    axiosWithAuth().delete(`/api/users/${user_id}/values/${id}`)
+    setCurrentValues(newValues)
   }
 
   // -------------- Add Remove Reset Functions End --------------- //
@@ -207,7 +214,7 @@ const ValueFiled = (props) => {
           <div>
             {currentValues !== undefined ? currentValues.map(value => {
               return (
-                <Card className={classes.valueList} key={value.id}>
+                <Card className={classes.valueList} key={value.value_id}>
                   {console.log(value)}
                   <div className={classes.valueiteam}>
                     <p>{value.value_name}</p>
@@ -218,7 +225,7 @@ const ValueFiled = (props) => {
                       name="remove" 
                       variant="contained"
                       color="secondary"
-                      onClick={() => removeValue(value.id)}
+                      onClick={() => removeValue(value.value_id)}
                       >
                       &times;
                     </Button>
