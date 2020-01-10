@@ -2,12 +2,16 @@ import React, {useState, useEffect} from "react";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { Select } from 'formik-material-ui';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import Card from '@material-ui/core/Card';
+import Select from '@material-ui/core/Select';
+import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import { makeStyles, createMuiTheme, ThemeProvider, withTheme } from '@material-ui/core/styles'; 
+
+// ------------- Styling Start -------------- //
+// ========================================== //
 
 const theme = createMuiTheme({
   palette: {
@@ -23,7 +27,6 @@ const theme = createMuiTheme({
 
 const useStyles = makeStyles(theme => ({
   mainroot: {
-    // border: '2px solid green',
     width: '100%',
     display: 'flex', 
     flexDirection: 'column',
@@ -86,11 +89,13 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-const FormFiled = ({ status, addValue, resetValues }) => {
+// ========================================== //
+// -------------- Styling End --------------- //
+
+const FormFiled = ({ status, dataValues, addValue, resetValues }) => {
 
   const classes = useStyles();
-
-    
+  
   useEffect(() => {
     if(status) {
       addValue(status)
@@ -108,39 +113,25 @@ const FormFiled = ({ status, addValue, resetValues }) => {
 
           <Form className={classes.root}>
           <ThemeProvider theme={theme}>
+          
           <div className={classes.menuDiv}>
           <InputLabel shrink id="valueIteam">
-            Value Iteam
+            Data Value Iteam
           </InputLabel>
-          <Field 
-            type="valueIteam" 
-            name="valueIteam" 
-            placeholder="Value" 
-            color="primary"
-            component={Select}
-            className={classes.duelMenu}
-          >
-              <MenuItem value="" disabled>Choose a value</MenuItem>
-              <MenuItem id={'value-1'} value={'Athletic ability'}>Athletic ability</MenuItem>
-              <MenuItem id={'value-2'} value={'Art and literature'}>Art and literature</MenuItem>
-              <MenuItem id={'value-3'} value={'Creativity'}>Creativity</MenuItem>
-              <MenuItem id={'value-4'} value={'Discovering'}>Discovering</MenuItem>
-              <MenuItem id={'value-5'} value={'Inventing'}>Inventing</MenuItem>
-              <MenuItem id={'value-6'} value={'Independence'}>Independence</MenuItem>
-              <MenuItem id={'value-7'} value={'Kindness and generosity'}>Kindness and generosity</MenuItem>
-              <MenuItem id={'value-8'} value={'Living in the moment'}>Living in the moment</MenuItem>
-              <MenuItem id={'value-9'} value={'Membership in a social group'}>Membership in a social group</MenuItem>
-              <MenuItem id={'value-10'} value={'Music'}>Music</MenuItem>
-              <MenuItem id={'value-11'} value={'My community'}>My community </MenuItem>
-              <MenuItem id={'value-12'} value={'My moral principles'}>My moral principles</MenuItem>
-              <MenuItem id={'value-13'} value={'Nature and the environment'}>Nature and the environment</MenuItem>
-              <MenuItem id={'value-14'} value={'Relationships with friends and family'}>Relationships with friends and family</MenuItem>
-              <MenuItem id={'value-15'} value={'Sense of humor'}>Sense of humor</MenuItem>
-              <MenuItem id={'value-16'} value={'Success in my career'}>Success in my career</MenuItem>
-          </Field>
-          <br/>
-          <br/>
-          <br/>
+          <FormControl>
+          <Select type="valueIteam" name="valueIteam">
+            {dataValues !== undefined ? dataValues.map(valueList => {
+              return (
+                <MenuItem 
+                id={valueList.id} 
+                value={valueList.name}
+                >
+                {valueList.name}
+              </MenuItem>
+              )
+            }): null}
+          </Select>
+          </FormControl>
           </div>
           
           <div className={classes.buttonDiv}>
@@ -175,7 +166,6 @@ const FormFiled = ({ status, addValue, resetValues }) => {
   ) 
 }
 
-
 const ValueForm = withFormik({
   
   mapPropsToValues({valueIteam}) {
@@ -190,11 +180,12 @@ const ValueForm = withFormik({
     .required(),
   }),
 
-  handleSubmit(values, { resetForm, setStatus, setSubmitting }) {
+  handleSubmit(dataValues, { resetForm, setStatus, setSubmitting }) {
     axios
-      .post("https://reqres.in/api/users", values)
+      .post("https://reqres.in/api/users", dataValues)
       .then(response => {
         setStatus(response.data);
+        console.log(dataValues)
         resetForm();
         setSubmitting(false)
       })

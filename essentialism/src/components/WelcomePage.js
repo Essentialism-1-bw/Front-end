@@ -1,8 +1,7 @@
-
 import React from 'react'
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Values from './WelcomePageComponents/Values/Values'
+import Values from './WelcomePageComponents/Values/CallFromDummydata/Values'
 import Description from './WelcomePageComponents/Description'
 import ProjectsPopup from './WelcomePageComponents/Projects/ProjectsPopup'
 import Popup from 'reactjs-popup'
@@ -107,13 +106,13 @@ const WelcomePage = (props) => {
                     <Values />
                 </div>
                 <div className={classes.section2}>
-                    <h2 className={classes.mainTitle}>3. Add your value description</h2>
+                    <h2 className={classes.mainTitle}>Add your value description</h2>
                 </div>
                 <div className={classes.boxD}>
                     <Description />
                 </div>
                 <div className={classes.section3} >
-                <h2 className={classes.mainTitle}>4. NOW CLICK </h2>
+                <h2 className={classes.mainTitle}>NOW CLICK </h2>
                     <ThemeProvider theme={theme}>
                         <Popup 
                             trigger={
