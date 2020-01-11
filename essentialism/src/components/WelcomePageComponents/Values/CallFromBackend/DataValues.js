@@ -140,12 +140,12 @@ const ValueFiled = (props) => {
         })
         .catch(error => console.log(`Error: ${error}`)); 
 
-        if(currentValues.length < 5) {
+        if(currentValues.length < 3) {
                 setSubmitStatus(false)
-                setErrorText("Must have at least 5 values.")
-            } else if(currentValues.length > 5) {
+                setErrorText("Must have at least 3 values.")
+            } else if(currentValues.length > 3) {
                 setSubmitStatus(false)
-                setErrorText("No more than 5 values.")
+                setErrorText("No more than 3 values.")
             } else {
                 setSubmitStatus(true)
             }
@@ -212,7 +212,7 @@ const ValueFiled = (props) => {
 
   return (
     <div className={classes.mainroot}>
-      <h2 className={classes.mainTitle}>The first step is to select your 5 favorite values</h2>
+      <h2 className={classes.mainTitle}>The first step is to select your 3 favorite values</h2>
       <Card className={classes.card}>
         <DataValueForm 
           dataValues = {dataValues}
@@ -246,29 +246,32 @@ const ValueFiled = (props) => {
           <div style={{margin: '3%'}}>
           {submitStatus === true ? 
             <div>
-              <ThemeProvider theme={theme}>
-                  <Popup 
-                      trigger={
-                          <Button 
-                          variant="contained" 
-                          color="primary" 
-                          style={{margin: '3%'}}
-                          >
-                          Submit
-                          </Button>
-                      }
-                  modal 
-                  closeOnDocumentClick={false} 
-                  style={{ width: '100vw', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                  >
-                      {close => {
-                      return (
-                      <ValuesPopup values={currentValues} addValue={addValue} resetValues={resetValues} removeValue={removeValue} close={close}/>
-                      )
-                      }}
-                  </Popup>
-              </ThemeProvider>
-            </div>  
+              Please Scroll Down To Add Your Reason!
+            </div>
+            // <div>
+            //   <ThemeProvider theme={theme}>
+            //       <Popup 
+            //           trigger={
+            //               <Button 
+            //               variant="contained" 
+            //               color="primary" 
+            //               style={{margin: '3%'}}
+            //               >
+            //               Submit
+            //               </Button>
+            //           }
+            //       modal 
+            //       closeOnDocumentClick={false} 
+            //       style={{ width: '100vw', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+            //       >
+            //           {close => {
+            //           return (
+            //           <ValuesPopup values={currentValues} addValue={addValue} resetValues={resetValues} removeValue={removeValue} close={close}/>
+            //           )
+            //           }}
+            //       </Popup>
+            //   </ThemeProvider>
+            // </div>  
             : errorText}
           </div>
         </ThemeProvider>
