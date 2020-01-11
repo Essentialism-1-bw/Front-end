@@ -112,7 +112,7 @@ const FormFiled = ({ status, dataValues, addValue, resetValues }) => {
   return (
     <div className={classes.mainroot}>
       <Card className={classes.card}>
-          <h3>Add your top 5 Values</h3>
+          <h3>Add your top 3 Values</h3>
           <br/>
           <br/>
           <br/>

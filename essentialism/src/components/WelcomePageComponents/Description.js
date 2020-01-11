@@ -80,8 +80,8 @@ function FormFiled({ touched, status }) {
   const [submitStatus, setSubmitStatus] = useState(true);
 
     useEffect(() =>{
-      if(valueDescription) setSubmitStatus(true)
-      else setSubmitStatus(false)
+      if(Object.entries(valueDescription).length === 0) setSubmitStatus(false)
+      else setSubmitStatus(true)
       const user_id = localStorage.getItem("user_id")
       axiosWithAuth().get(`/api/users/${user_id}/reasons`)
         .then(res => setValueDescription(res.data))
