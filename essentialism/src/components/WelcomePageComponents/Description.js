@@ -6,6 +6,7 @@ import { TextField } from 'formik-material-ui';
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles'; 
+import { axiosWithAuth } from "../../Authentication/axiosWithAuth";
 
 const theme = createMuiTheme({
   palette: {
@@ -74,13 +75,23 @@ const useStyles = makeStyles(theme => ({
 
 function FormFiled({ touched, status }) {
 
-  const [valueDescription, setValueDescription] = useState([]);
+  const [valueDescription, setValueDescription] = useState({});
+
+  const [submitStatus, setSubmitStatus] = useState(true);
 
     useEffect(() =>{
+      if(valueDescription) setSubmitStatus(true)
+      else setSubmitStatus(false)
+      const user_id = localStorage.getItem("user_id")
+      axiosWithAuth().get(`/api/users/${user_id}/reasons`)
+        .then(res => setValueDescription(res.data))
         if (status) {
-            setValueDescription([...valueDescription, status])
+            axiosWithAuth().post(`/api/users/${user_id}/reasons`, {
+              reason: status.paragraph
+            })
+              .then(res => setValueDescription(res.data))
         }
-    }, [status]);
+    }, [status, valueDescription]);
 
     const classes = useStyles();
 
@@ -101,6 +112,7 @@ function FormFiled({ touched, status }) {
               name="submit" 
               variant="contained"
               color="secondary"
+              disabled={submitStatus}
             >
               Submit Value Description
             </Button>
@@ -141,16 +153,13 @@ function FormFiled({ touched, status }) {
           className={classes.valueCard}
         >    
           <div className={classes.valueiteam}>
-            {valueDescription.map(DescriptionCard => (
-            <div key={DescriptionCard.id}>
+            <div key={valueDescription.id}>
                 <Card className={classes.descriptionCard}>
                   <h2 className={classes.valueiteam}> Your Value Description:</h2>
-                  <h3 className={classes.valueiteam}> {DescriptionCard.title}</h3>
-                  <p className={classes.valueiteam}> {DescriptionCard.paragraph}</p>
+                  <p className={classes.valueiteam}> {valueDescription.reason}</p>
                   <br/> 
                 </Card>  
             </div>
-            ))}
           </div>
         </Card>
     </div>

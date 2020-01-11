@@ -35,10 +35,6 @@ const useStyles = makeStyles({
       marginTop: 10,
       borderRadius: '15px'
   },
-  buttonDiv: {
-      display: 'flex',
-      justifyContent: 'flex-end'
-  },
   singleField: {
       width: 470,
     },
