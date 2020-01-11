@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from "react";
-import { withFormik, Form, Field } from "formik";
+import { withFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
-import { makeStyles, createMuiTheme, ThemeProvider, withTheme } from '@material-ui/core/styles'; 
+import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles'; 
 import DataValueForm from './DataValueForm'
 import ValuesPopup from '../ValuesPopup'
 import Popup from 'reactjs-popup'
+import { axiosWithAuth } from '../../../../Authentication/axiosWithAuth'
 
 // ------------- Styling Start -------------- //
 // ========================================== //
@@ -91,6 +92,8 @@ const ValueFiled = (props) => {
 
   const [dataValues, setDataValues] = useState(); 
 
+  const [currentValues, setCurrentValues] = useState([])
+
   const [submitStatus, setSubmitStatus] = useState(true)
 
   const [errorText, setErrorText] = useState('')
@@ -119,45 +122,88 @@ const ValueFiled = (props) => {
   //   }
   // }, [dataValues.length])
 
+  const user_id = localStorage.getItem("user_id")
+
   useEffect(() => {
     // Axios call to backend data 
-    axios
-    .get(`https://bw-essentialism.herokuapp.com/api/values/`)
-    .then(response => {
-      setDataValues(response.data)
-    })
-    .catch(error => console.log(`Error: ${error}`)); 
+    async function fetchValues() {
+      axios
+      .get(`https://bw-essentialism.herokuapp.com/api/values/`)
+      .then(response => {
+        setDataValues(response.data);
+      })
+      .catch(error => console.log(`Error: ${error}`)); 
 
+      axiosWithAuth().get(`/api/users/${user_id}/values`)
+        .then(res => {
+          setCurrentValues(res.data)
+        })
+        .catch(error => console.log(`Error: ${error}`)); 
+
+        if(currentValues.length < 5) {
+                setSubmitStatus(false)
+                setErrorText("Must have at least 5 values.")
+            } else if(currentValues.length > 5) {
+                setSubmitStatus(false)
+                setErrorText("No more than 5 values.")
+            } else {
+                setSubmitStatus(true)
+            }
+    }
+ 
+    fetchValues();
     // Data validation maximum 5 values
-    if(dataValues.length < 5) {
-      setSubmitStatus(false)
-      setErrorText("Must have at least 5 values.")
-    } else if(dataValues.length > 5) {
-      setSubmitStatus(false)
-      setErrorText("No more than 5 values.")
-    } else {
-      setSubmitStatus(true)
-    } 
-  }, [dataValues.length]);
+    // if(dataValues.length < 5) {
+    //   setSubmitStatus(false)
+    //   setErrorText("Must have at least 5 values.")
+    // } else if(dataValues.length > 5) {
+    //   setSubmitStatus(false)
+    //   setErrorText("No more than 5 values.")
+    // } else {
+    //   setSubmitStatus(true)
+    // } 
+  }, [user_id, currentValues.length]);
 
 // -------------- Varable declaration useEffect & Axios call to backend End --------------- //
 
 
 // -------------- Add Remove Reset Functions Start --------------- //
 
+
+
   const addValue = (value) => {
-    setDataValues([...dataValues, value])
+    // if(dataValues.length < 5) {
+    //   setSubmitStatus(false)
+    //   setErrorText("Must have at least 5 values.")
+    // } else if(dataValues.length > 5) {
+    //   setSubmitStatus(false)
+    //   setErrorText("No more than 5 values.")
+    // } else {
+    //   setSubmitStatus(true)
+    // } 
+    let newValue = {
+      value_id: value.id,
+      value_name: value.name
+    }
+    setCurrentValues([...currentValues, newValue])
+    axiosWithAuth().post(`/api/users/${user_id}/values`, {
+      value_id: newValue.value_id
+    })
   }
 
   const resetValues = () => {
-    setDataValues([])
+    setCurrentValues([])
+    currentValues.map(value => {
+     return axiosWithAuth().delete(`/api/users/${user_id}/values/${value.value_id}`)
+    })
   }
 
   const removeValue = (id) => {
-    let newValues = dataValues.filter(value => {
-      return value.id !== id;
+    let newValues = currentValues.filter(value => {
+      return value.value_id !== id;
     })
-    setDataValues(newValues)
+    axiosWithAuth().delete(`/api/users/${user_id}/values/${id}`)
+    setCurrentValues(newValues)
   }
 
   // -------------- Add Remove Reset Functions End --------------- //
@@ -176,11 +222,11 @@ const ValueFiled = (props) => {
 
         <ThemeProvider theme={theme}>
           <div>
-            {dataValues !== undefined ? dataValues.map(value => {
+            {currentValues !== undefined ? currentValues.map(value => {
               return (
-                <Card className={classes.valueList} key={dataValues.id}>
+                <Card className={classes.valueList} key={value.value_id}>
                   <div className={classes.valueiteam}>
-                    <p>{value.valueIteam}</p>
+                    <p>{value.value_name}</p>
                   </div>
                   <div className={classes.buttonDiv}>
                     <Button 
@@ -188,7 +234,7 @@ const ValueFiled = (props) => {
                       name="remove" 
                       variant="contained"
                       color="secondary"
-                      onClick={() => removeValue(value.id)}
+                      onClick={() => removeValue(value.value_id)}
                       >
                       &times;
                     </Button>
@@ -217,7 +263,7 @@ const ValueFiled = (props) => {
                   >
                       {close => {
                       return (
-                      <ValuesPopup dataValues={dataValues} addValue={addValue} resetValues={resetValues} removeValue={removeValue} close={close}/>
+                      <ValuesPopup values={currentValues} addValue={addValue} resetValues={resetValues} removeValue={removeValue} close={close}/>
                       )
                       }}
                   </Popup>

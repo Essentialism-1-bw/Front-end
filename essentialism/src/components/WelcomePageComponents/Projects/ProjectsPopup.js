@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 
 
 import AddProjectsForm from './AddProjectsForm'
+import { axiosWithAuth } from '../../../Authentication/axiosWithAuth';
 
 const theme = createMuiTheme({
     palette: {
@@ -80,7 +81,10 @@ const ProjectsPopup = ({ close }) => {
 
     const [errorText, setErrorText] = useState('')
 
+    const user_id = localStorage.getItem("user_id")
     useEffect(() => {
+        axiosWithAuth().get(`/api/users/${user_id}/projects`)
+            .then(res => setProjects(res.data))
         if(projects.length < 3) {
             setSubmitStatus(false)
             setErrorText("Must have at least 3 projects.")
@@ -90,17 +94,17 @@ const ProjectsPopup = ({ close }) => {
         } else {
             setSubmitStatus(true)
         }
-    }, [projects.length])
+    }, [projects.length, user_id])
     const addProject = (project) => {
         setProjects([...projects, project])
+        axiosWithAuth().post(`/api/users/${user_id}/projects`, { name: project.name })
     }
 
-    const removeProject = (id) => {
-        let newProjects = projects.filter(project => {
-            return project.id !== id
-        })
+    const deleteProject = (id) => {
+        let newProjects =  projects.filter(project => project.id !== id)
         setProjects(newProjects)
-    }
+        axiosWithAuth().delete(`/api/users/${user_id}/projects/${id}`)
+     }
     const classes = useStyles()
     return (
         <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'column', overflowY: 'auto', height: '90vh', padding: "2%"  }}>
@@ -111,7 +115,6 @@ const ProjectsPopup = ({ close }) => {
             </Card>
             <ThemeProvider theme={theme}>
                 <div style={{width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
-                    {console.log(projects)}
                     <h2>Current Projects:</h2>
                     {projects !== undefined ? projects.map(project => {
                         return <Card className={classes.projectCard} key={project.id}>
@@ -121,7 +124,7 @@ const ProjectsPopup = ({ close }) => {
                                         name="remove" 
                                         variant="contained"
                                         color="secondary"
-                                        onClick={() => removeProject(project.id)}
+                                        onClick={() => deleteProject(project.id)}
                                         >
                                         &times;
                                     </Button>

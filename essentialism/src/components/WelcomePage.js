@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Values from './WelcomePageComponents/Values/CallFromDummydata/Values'
+import DataValues from './WelcomePageComponents/Values/CallFromBackend/DataValues'
 import Description from './WelcomePageComponents/Description'
 import ProjectsPopup from './WelcomePageComponents/Projects/ProjectsPopup'
 import Popup from 'reactjs-popup'
@@ -105,7 +105,7 @@ const WelcomePage = (props) => {
                     </div>
                 </div>
                 <div className={classes.valuesection}>
-                    <Values />
+                    <DataValues />
                 </div>
                 <div className={classes.section2}>
                     <h2 className={classes.mainTitle}>Add your value description</h2>

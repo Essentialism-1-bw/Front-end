@@ -92,7 +92,6 @@ const ProjectsPopup = ({ close, projects, setProjects, deleteProject }) => {
     const user_id = localStorage.getItem("user_id")
     const addProject = (project) => {
         setProjects([...projects, project])
-        console.log(project)
         axiosWithAuth().post(`/api/users/${user_id}/projects`, { name: project.name })
     }
 

@@ -1,14 +1,13 @@
 import React, {useState, useEffect} from "react";
-import { withFormik, Form, Field } from "formik";
+import { withFormik, Form } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import Card from '@material-ui/core/Card';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
-import { makeStyles, createMuiTheme, ThemeProvider, withTheme } from '@material-ui/core/styles'; 
+import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles'; 
 
 // ------------- Styling Start -------------- //
 // ========================================== //
@@ -95,14 +94,21 @@ const useStyles = makeStyles(theme => ({
 const FormFiled = ({ status, dataValues, addValue, resetValues }) => {
 
   const classes = useStyles();
-  
+  const [formValues, setFormValues] = useState([])
+
+  const [currentValue, setCurrentValue] = useState("")
+
   useEffect(() => {
+
     if(status) {
       addValue(status)
     }
-  }, [status, addValue])
+    if(dataValues) setFormValues(dataValues)
+  }, [status, addValue, dataValues])
 
-
+  const handleChangeValue = (e) => {
+    setCurrentValue(e.target.value)
+  }
   return (
     <div className={classes.mainroot}>
       <Card className={classes.card}>
@@ -119,17 +125,18 @@ const FormFiled = ({ status, dataValues, addValue, resetValues }) => {
             Data Value Iteam
           </InputLabel>
           <FormControl>
-          <Select type="valueIteam" name="valueIteam">
-            {dataValues !== undefined ? dataValues.map(valueList => {
+          <Select type="valueIteam" name="valueIteam" onChange={e => handleChangeValue(e)}> 
+            {formValues !== undefined ? formValues.map(valueList => {
               return (
                 <MenuItem 
+                key={valueList.id}
                 id={valueList.id} 
-                value={valueList.name}
+                value={valueList}
                 >
                 {valueList.name}
               </MenuItem>
               )
-            }): null}
+            }): null} 
           </Select>
           </FormControl>
           </div>
@@ -141,6 +148,7 @@ const FormFiled = ({ status, dataValues, addValue, resetValues }) => {
               name="submit" 
               variant="contained"
               color="primary"
+              onClick={() => addValue(currentValue)}
             >
               Add Values
             </Button>
@@ -180,19 +188,20 @@ const ValueForm = withFormik({
     .required(),
   }),
 
-  handleSubmit(dataValues, { resetForm, setStatus, setSubmitting }) {
-    axios
-      .post("https://reqres.in/api/users", dataValues)
-      .then(response => {
-        setStatus(response.data);
-        console.log(dataValues)
-        resetForm();
-        setSubmitting(false)
-      })
-      .catch(err => {
-        console.log('Error', err.response);
-        setSubmitting(false)
-      });
+  handleSubmit(values, { resetForm, setStatus, setSubmitting }) {
+    console.log(values)
+    // axios
+    //   .post("https://reqres.in/api/users", dataValues)
+    //   .then(response => {
+    //     setStatus(response.data);
+    //     console.log(dataValues)
+    //     resetForm();
+    //     setSubmitting(false)
+    //   })
+    //   .catch(err => {
+    //     console.log('Error', err.response);
+    //     setSubmitting(false)
+    //   });
   }
 })(FormFiled);
 

@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from "react";
+import React, { useEffect } from "react";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { Select } from 'formik-material-ui';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
-import { makeStyles, createMuiTheme, ThemeProvider, withTheme } from '@material-ui/core/styles'; 
+import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles'; 
 
 
 const theme = createMuiTheme({
@@ -34,10 +34,6 @@ const useStyles = makeStyles({
   signin: {
       marginTop: 10,
       borderRadius: '15px'
-  },
-  buttonDiv: {
-      display: 'flex',
-      justifyContent: 'flex-end'
   },
   singleField: {
       width: 470,
@@ -173,6 +169,7 @@ const AddTopThreeForm = ({ status, topThree, values, addValue, removeValue, rese
             {topThree.map(valueList => (
             <MenuItem 
               id={valueList.valueIteam}
+              key={valueList.valueIteam}
               value={valueList.valueIteam}
             >
               {valueList.valueIteam}
