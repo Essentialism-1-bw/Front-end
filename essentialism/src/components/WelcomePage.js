@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import DataValues from './WelcomePageComponents/Values/CallFromBackend/DataValues'
 import Description from './WelcomePageComponents/Description'
 import ProjectsPopup from './WelcomePageComponents/Projects/ProjectsPopup'
 import Popup from 'reactjs-popup'
+import { axiosWithAuth } from '../Authentication/axiosWithAuth';
 
 const useStyles = makeStyles({
     banner: {
@@ -86,13 +87,18 @@ const theme = createMuiTheme({
 const WelcomePage = (props) => {
 
     const classes = useStyles();
-
+    const [user, setUser] = useState({})
+    useEffect(() => {
+        const user_id = localStorage.getItem('user_id')
+        axiosWithAuth().get(`/api/users/${user_id}`)
+            .then(res => setUser(res.data))
+    }, [])
     return (
         <div >
             <div className="BannerBG5">
                 <div className={classes.banner}>
                     <div className={classes.centerCont}>
-                        <h1 className={classes.mainTitle}>Hello John Doe</h1>
+                        <h1 className={classes.mainTitle}>Hello {`${user.firstName} ${user.lastName}`}</h1>
                         <p className={classes.body}>Regain control of your own choices about where to spend your time and energy instead of giving others implicit permission to choose for you.</p>
                     </div>
                 </div>
