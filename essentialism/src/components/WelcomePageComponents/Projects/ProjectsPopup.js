@@ -94,7 +94,7 @@ const ProjectsPopup = ({ close }) => {
         } else {
             setSubmitStatus(true)
         }
-    }, [projects.length])
+    }, [projects.length, user_id])
     const addProject = (project) => {
         setProjects([...projects, project])
         axiosWithAuth().post(`/api/users/${user_id}/projects`, { name: project.name })

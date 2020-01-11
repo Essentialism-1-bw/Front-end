@@ -129,6 +129,7 @@ const FormFiled = ({ status, dataValues, addValue, resetValues }) => {
             {formValues !== undefined ? formValues.map(valueList => {
               return (
                 <MenuItem 
+                key={valueList.id}
                 id={valueList.id} 
                 value={valueList}
                 >

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ReagisterForm from "./RegisterForm";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
@@ -52,11 +52,11 @@ const useStyles = makeStyles({
 const Reagister = props => {
   const classes = useStyles();
 
-  const [credentials, setCredentials] = useState({
-    username: "",
-    email: "",
-    password: ""
-  });
+  // const [credentials, setCredentials] = useState({
+  //   username: "",
+  //   email: "",
+  //   password: ""
+  // });
 
   // const handleChange = e => {
   //   setCredentials({

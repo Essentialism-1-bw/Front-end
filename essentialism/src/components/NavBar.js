@@ -6,7 +6,6 @@ import {
   ThemeProvider
 } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import { useHistory } from 'react-router-dom'
 
 const theme = createMuiTheme({
   palette: {
@@ -51,12 +50,10 @@ const useStyles = makeStyles({
 
 const NavBar = () => {
   const classes = useStyles();
-  let history = useHistory();
 
   const signOut = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user_id');
-    history.push('/')
   }
 
 
@@ -80,7 +77,7 @@ const NavBar = () => {
       {/* <Link className={classes.link} to="/">
         Sign In
       </Link> */}
-      {localStorage.getItem("token") ? <Link className={classes.link} onClick={() => signOut()}>Sign Out</Link> : <Link className={classes.link} to="/">
+      {localStorage.getItem("token") ? <Link className={classes.link} to="/" onClick={() => signOut()}>Sign Out</Link> : <Link className={classes.link} to="/">
         Sign In
       </Link>}
       <Link className={classes.link} to="/dashboard">

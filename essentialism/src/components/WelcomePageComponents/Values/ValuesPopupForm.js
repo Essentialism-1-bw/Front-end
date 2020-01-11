@@ -169,6 +169,7 @@ const AddTopThreeForm = ({ status, topThree, values, addValue, removeValue, rese
             {topThree.map(valueList => (
             <MenuItem 
               id={valueList.valueIteam}
+              key={valueList.valueIteam}
               value={valueList.valueIteam}
             >
               {valueList.valueIteam}
